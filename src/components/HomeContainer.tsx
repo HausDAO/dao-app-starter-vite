@@ -1,5 +1,4 @@
 import { DHLayout, useDHConnect } from "@daohaus/connect";
-import { HAUS_RPC } from "@daohaus/keychain-utils";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { H4 } from "@daohaus/ui";
 import { Outlet, useLocation } from "react-router-dom";
@@ -17,7 +16,10 @@ export function HomeContainer() {
   return (
     <DHLayout
       pathname={location.pathname}
-      navLinks={[{ label: "Home", href: `/` }]}
+      navLinks={[
+        { label: "Home", href: `/` },
+        { label: "Dao Overview", href: "/dao" },
+      ]}
       leftNav={<H4>{dao?.name}</H4>}
     >
       <TXBuilder
@@ -26,22 +28,6 @@ export function HomeContainer() {
         daoId={TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS}
         safeId={TARGET_DAO[import.meta.env.VITE_TARGET_KEY].SAFE_ADDRESS}
         appState={{ dao, memberAddress: address }}
-        rpcs={{
-          "0x1": `https://${
-            import.meta.env.VITE_RIVET_KEY
-          }.eth.rpc.rivet.cloud/`,
-          "0x5": `https://${
-            import.meta.env.VITE_RIVET_KEY
-          }.goerli.rpc.rivet.cloud/`,
-          "0x64": HAUS_RPC["0x64"],
-        }}
-        explorerKeys={{
-          "0x1": import.meta.env.VITE_EXPLORER_KEY,
-          "0x5": import.meta.env.VITE_EXPLORER_KEY,
-        }}
-        graphApiKeys={{
-          "0x1": import.meta.env.VITE_GRAPH_API_KEY_MAINNET,
-        }}
       >
         <Outlet />
       </TXBuilder>

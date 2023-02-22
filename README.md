@@ -55,6 +55,43 @@ yarn dev
 
 ## Reference
 
+### main.tsx
+
+- sets up the react query provider @daohaus/moloch-v3-hooks will use
+- sets up DHConnectProvider - that handles the wallet connect functionality
+- sets up HausThemeProvider - that provides the styling theme to the app
+- adds the router to the app
+
+### HomeContainer.tsx
+
+- Parent component wrapping all routes/pages
+- sets up DHLayout which adds the connect button and navigation to the app
+  - you can change nav links here
+- sets up TXBuilder which will enable easy transaction creation
+
+### FormTest.tsx
+
+- Example of how to add FormBuilder to the app
+- see the lego it is using at `legos/forms.ts`, `legos/fields.ts` and `legos/tx.ts`
+  - these are recipes to create forms and contract function interactions
+
+### todo
+
+- add routes/pages for dao overview, vaults, settings
+  - proposals, members and profile coming soon
+- show hook data fetch
+- show macro ui addition
+- moloch-v3-fields package
+  - coming soon
+
+### adding ui components
+
+- storybook
+
+### adding custom fields
+
+tbd
+
 ### editing the theme
 
 tbd
@@ -62,3 +99,5 @@ tbd
 ### router example for multi-dao app
 
 tbd
+
+### more docs
