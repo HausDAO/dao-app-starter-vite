@@ -1,5 +1,7 @@
 # DAOhaus: V3 Vite Starter
 
+Starter for a DAO app scoped to a single DAO.
+
 ## Development
 
 ### 1. project setup
