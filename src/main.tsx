@@ -1,18 +1,27 @@
-import { DHConnectProvider } from '@daohaus/connect';
-import { HausThemeProvider } from '@daohaus/ui';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { HashRouter } from 'react-router-dom';
-import { Routes } from './Routes';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { HashRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { DHConnectProvider } from "@daohaus/connect";
+import { HausThemeProvider } from "@daohaus/ui";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+import { Routes } from "./Routes";
+import { TARGET_DAO } from "./targetDao";
+
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <HashRouter>
-      <HausThemeProvider>
-        <DHConnectProvider>
-          <Routes />
+      <QueryClientProvider client={queryClient}>
+        <DHConnectProvider
+          daoChainId={TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID}
+        >
+          <HausThemeProvider>
+            <Routes />
+          </HausThemeProvider>
         </DHConnectProvider>
-      </HausThemeProvider>
+      </QueryClientProvider>
     </HashRouter>
   </React.StrictMode>
 );

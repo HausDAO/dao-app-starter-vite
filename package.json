@@ -1,7 +1,7 @@
 {
   "name": "daohaus-vite-starter",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,12 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@daohaus/connect": "^0.1.3",
-    "@daohaus/form-builder": "^0.1.3",
-    "@daohaus/tx-builder": "^0.1.3",
-    "@daohaus/ui": "^0.1.3",
+    "@daohaus/connect": "^0.1.20",
+    "@daohaus/contract-utils": "^0.1.20",
+    "@daohaus/form-builder": "^0.1.20",
+    "@daohaus/moloch-v3-hooks": "^0.0.5",
+    "@daohaus/moloch-v3-macro-ui": "^0.0.3",
+    "@daohaus/tx-builder": "^0.1.20",
+    "@daohaus/ui": "^0.1.20",
+    "@daohaus/utils": "^0.1.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.4.5"
   },
   "devDependencies": {
