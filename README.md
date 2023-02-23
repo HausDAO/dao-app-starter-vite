@@ -90,6 +90,43 @@ yarn dev
 
 - storybook
 
+### methods for accessing daoid and daochain
+
+these values are used in most hoks and components and you have some options:
+
+```tsx
+
+// get them from the targetDao.ts
+const daoChain = TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID;
+const daoId = TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS;
+
+// load them into a context from the @daohaus/moloch-v3-hooks library and then there is a hook you can use.
+
+// wrap your tree in this context:
+
+import { CurrentDaoProvider } from "@daohaus/moloch-v3-hooks";
+
+...
+
+<CurrentDaoProvider
+  targetDao={{
+    daoChain: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
+    daoId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS,
+  }}
+>
+  {children}
+</CurrentDaoProvider>;
+
+// then access this hook:
+
+import { useCurrentDao } from "@daohaus/moloch-v3-hooks";
+ ...
+
+const { daoChain, daoId } = useCurrentDao();
+```
+
+- future: urlParams in a multidao app
+
 ### adding custom fields
 
 tbd
@@ -102,4 +139,8 @@ tbd
 
 tbd
 
-### more docs
+## Reference
+
+- docs links
+- mono libs
+- monorepo admin/admin-new
