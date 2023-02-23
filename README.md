@@ -1,4 +1,4 @@
-# DAOhaus: V3 Vite Starter
+# DAO App Starter Vite
 
 React Vite Starter for a DAO app scoped to a single DAO.
 
