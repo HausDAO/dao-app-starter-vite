@@ -1,6 +1,6 @@
-# DAOhaus: V3 Vite Starter
+# DAO MiniApp Starter (vite)
 
-Starter for a DAO app scoped to a single DAO.
+Vite React Starter for a DAO app scoped to a single DAO.
 
 ## Development
 
