@@ -4,52 +4,74 @@ Starter for a DAO app scoped to a single DAO.
 
 ## Development
 
-### 1. project setup
+### 1. Project Setup
+
+#### SSH
 
 ```bash
 git clone git@github.com:HausDAO/moloch-v3-vite-starter.git
 
-cd moloch-v3-vite-starter
+cd dh-moloch-v3-vite-starter
 
 yarn
 ```
 
-### 2. env setup
+#### HTTPS
+
+```bash
+git clone https://github.com/HausDAO/dh-v3-vite-starter.git
+
+cd dh-moloch-v3-vite-starter
+
+yarn
+```
+
+### 2. `.env` Setup
 
 ```bash
 cp .env.sample .env
 ```
 
-```md
+```yaml
 VITE_RIVET_KEY
-
-get a free rivet key [here](https://rivet.cloud/)
-
-VITE_EXPLORER_KEY
-
-get etherscan explorer api key [here](https://etherscan.io/apis)
-
-VITE_GRAPH_API_KEY_MAINNET
-
-if deeveloping for mainnet or gnosis chain you can get an api key [here](https://thegraph.com/explorer/subgraph?id=GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP&view=Overview). Ignore this one if not worried about mainnet or gnosis chain yet.
-
-VITE_TARGET_KEY
-
-This will be the target address for your DAO you are developing the app for.
 ```
 
-### 3. target dao set up
+Get a free Rivet key [here](https://rivet.cloud/)
 
-[Summon a DAO here](https://summon.daohaus.club)
+```yaml
+VITE_EXPLORER_KEY
+```
 
-Edit src/targetDao.ts
+Get an Etherscan API key [here](https://etherscan.io/apis)
 
-- add your DAO's data
-- Put the dao address in the .env variable mentioned above VITE_TARGET_KEY
-- You can add multiple DAOs as new object in targetDao.ts and toggle with this env variable
-- You can add otehr variables to targetDao.ts as needed
+```yaml
+VITE_GRAPH_API_KEY_MAINNET
+```
 
-### 4. run the development server
+If developing for Mainnet or Gnosis Chain you can get an API key [here](https://thegraph.com/explorer/subgraph?id=GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP&view=Overview). Ignore this one if not worried about mainnet or gnosis chain yet.
+
+```yaml
+VITE_TARGET_KEY
+```
+
+This is the target address for the DAO you are developing the app for. You will get this value in the next step if you do not have an existing DAO.
+
+### 3. Target DAO Set-up
+
+[Summon](https://summon.daohaus.club) a DAO
+
+#### Edit `src/targetDao.ts`
+
+Add your DAO's data to the property and values of the object
+
+#### Edit `.env`
+
+Add the DAO address in the `VITE_TARGET_KEY` variable
+
+- You can add multiple DAOs as new objects in `targetDao.ts` and toggle with this `env` variable
+- You can add other variables to `targetDao.ts` as needed
+
+### 4. Run the Development Server
 
 ```bash
 yarn dev
@@ -57,53 +79,55 @@ yarn dev
 
 ## Reference
 
-### main.tsx
+### `main.tsx`
 
-- sets up the react query provider @daohaus/moloch-v3-hooks will use
-- sets up DHConnectProvider - that handles the wallet connect functionality
-- sets up HausThemeProvider - that provides the styling theme to the app
-- adds the router to the app
+- Sets up the `react-query` provider `@daohaus/moloch-v3-hooks` will use
+- Sets up `DHConnectProvider` - that handles the Wallet Connect functionality
+- Sets up `HausThemeProvider` - that provides the styling theme to the app
+- Adds the router to the app
 
-### HomeContainer.tsx
+### `HomeContainer.tsx`
 
 - Parent component wrapping all routes/pages
-- sets up DHLayout which adds the connect button and navigation to the app
-  - you can change nav links here
-- sets up TXBuilder which will enable easy transaction creation
+- Sets up `DHLayout` which adds the connect button and navigation to the app
+  - You can update the navigation in `navLinks`
+- Sets up `TXBuilder` which enables easy transaction creation
 
-### FormTest.tsx
+### `FormTest.tsx`
 
-- Example of how to add FormBuilder to the app
-- see the lego it is using at `legos/forms.ts`, `legos/fields.ts` and `legos/tx.ts`
-  - these are recipes to create forms and contract function interactions
+- Example of how to add `FormBuilder` to the app
+- See the legos it is using at `legos/forms.ts`, `legos/fields.ts`, and `legos/tx.ts`
+  - These are recipes for creating forms and contract function interactions
 
-### todo
+### ToDo
 
-- add routes/pages for dao overview, vaults, settings
+- Ad routes/pages for dao overview, vaults, settings
   - proposals, members and profile coming soon
 - show hook data fetch
 - show macro ui addition
-- moloch-v3-fields package
+- `moloch-v3-fields` package
   - coming soon
 
-### adding ui components
+### Adding UI Components
 
-- storybook
+- [Storybook](https://storybook.js.org/)
 
-### methods for accessing daoid and daochain
+### Methods for Accessing `daoid` and `daochain`
 
-these values are used in most hoks and components and you have some options:
+These values are used in most hooks and components and you have some options:
+
+Get them from `targetDao.ts`
 
 ```tsx
-
-// get them from the targetDao.ts
 const daoChain = TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID;
 const daoId = TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS;
+```
 
-// load them into a context from the @daohaus/moloch-v3-hooks library and then there is a hook you can use.
+or load them into a context from the `@daohaus/moloch-v3-hooks` library and then there is a hook you can use.
 
-// wrap your tree in this context:
+Wrap your tree in this context:
 
+```tsx
 import { CurrentDaoProvider } from "@daohaus/moloch-v3-hooks";
 
 ...
@@ -116,31 +140,33 @@ import { CurrentDaoProvider } from "@daohaus/moloch-v3-hooks";
 >
   {children}
 </CurrentDaoProvider>;
+```
 
-// then access this hook:
+Then access this hook:
 
+```tsx
 import { useCurrentDao } from "@daohaus/moloch-v3-hooks";
  ...
 
 const { daoChain, daoId } = useCurrentDao();
 ```
 
-- future: urlParams in a multidao app
+- Future: `urlParams` in a multi DAO app
 
-### adding custom fields
-
-tbd
-
-### editing the theme
+### Adding Custom Fields
 
 tbd
 
-### router example for multi-dao app
+### Editing the Theme
 
 tbd
 
-## Reference
+### Router Example for Multi DAO App
 
-- docs links
-- mono libs
+tbd
+
+## Resources
+
+- [DAO Toolbox](https://toolbox.daohaus.fun/) docs
+- HausDAO monorepo [libs](https://github.com/HausDAO/monorepo/tree/develop/libs)
 - monorepo admin/admin-new
