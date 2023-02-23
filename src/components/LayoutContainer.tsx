@@ -5,7 +5,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { TARGET_DAO } from "../targetDao";
 import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
 
-export function HomeContainer() {
+export const LayoutContainer = () => {
   const location = useLocation();
   const { provider, address } = useDHConnect();
   const { dao } = useDaoData({
@@ -18,7 +18,7 @@ export function HomeContainer() {
       pathname={location.pathname}
       navLinks={[
         { label: "Home", href: `/` },
-        { label: "Dao Overview", href: "/dao" },
+        { label: "DAO Overview", href: "/dao" },
         { label: "Safes", href: "/safes" },
         { label: "Settings", href: "/settings" },
       ]}
@@ -42,6 +42,4 @@ export function HomeContainer() {
       </CurrentDaoProvider>
     </DHLayout>
   );
-}
-
-export default HomeContainer;
+};

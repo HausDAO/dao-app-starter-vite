@@ -1,6 +1,6 @@
-# DAO App Starter Vite
+# DAO MiniApp Starter (vite)
 
-React Vite Starter for a DAO app scoped to a single DAO.
+Vite React Starter for a DAO app scoped to a single DAO.
 
 ## Development
 
