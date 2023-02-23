@@ -1,8 +1,10 @@
-import { Routes as Router, Route, useLocation } from "react-router-dom";
+import { Routes as Router, Route } from "react-router-dom";
 import { FormTest } from "./pages/FormTest";
 import { Home } from "./pages/Home";
 import HomeContainer from "./components/HomeContainer";
 import Dao from "./pages/Dao";
+import { Safes } from "./pages/Safes";
+import { Settings } from "./pages/Settings";
 
 export const Routes = () => {
   return (
@@ -11,6 +13,9 @@ export const Routes = () => {
         <Route index element={<Home />} />
         <Route path="formtest/" element={<FormTest />} />
         <Route path="dao" element={<Dao />} />
+        <Route path="safes" element={<Safes />} />
+        <Route path="settings" element={<Settings />} />
+
         {/* <Route path="proposals/" element={<Proposals />} /> */}
         {/* <Route path="members/" element={<Members />} /> */}
       </Route>
