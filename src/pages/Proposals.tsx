@@ -4,7 +4,7 @@ import { SingleColumnLayout } from "@daohaus/ui";
 export const Proposals = () => {
   return (
     <SingleColumnLayout>
-      <ProposalList header="Proposals" allowLinks={false} />
+      <ProposalList header="Proposals" allowLinks={true} />
     </SingleColumnLayout>
   );
 };

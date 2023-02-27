@@ -13,7 +13,7 @@
     "@daohaus/contract-utils": "^0.1.21",
     "@daohaus/form-builder": "^0.1.21",
     "@daohaus/moloch-v3-hooks": "^0.0.6",
-    "@daohaus/moloch-v3-macro-ui": "^0.0.5",
+    "@daohaus/moloch-v3-macro-ui": "^0.0.6",
     "@daohaus/tx-builder": "^0.1.21",
     "@daohaus/ui": "^0.1.21",
     "@daohaus/utils": "^0.1.21",
