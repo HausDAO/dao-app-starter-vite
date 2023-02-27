@@ -5,6 +5,10 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import { TARGET_DAO } from "../targetDao";
 import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
 
+const routePath = `molochv3/${
+  TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID
+}/${TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS}`;
+
 export const LayoutContainer = () => {
   const location = useLocation();
   const { proposalId, memberAddress } = useParams<{
@@ -22,11 +26,11 @@ export const LayoutContainer = () => {
       pathname={location.pathname}
       navLinks={[
         { label: "Home", href: `/` },
-        { label: "DAO Overview", href: "/dao" },
-        { label: "Safes", href: "/safes" },
-        { label: "Proposals", href: "/proposals" },
-        { label: "Members", href: "/members" },
-        { label: "Settings", href: "/settings" },
+        { label: "DAO Overview", href: `${routePath}/dao` },
+        { label: "Safes", href: `${routePath}/safes` },
+        { label: "Proposals", href: `${routePath}/proposals` },
+        { label: "Members", href: `${routePath}/members` },
+        { label: "Settings", href: `${routePath}/settings` },
       ]}
       leftNav={<H4>{dao?.name}</H4>}
     >

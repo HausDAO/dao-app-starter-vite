@@ -9,20 +9,31 @@ import { Proposals } from "./pages/Proposals";
 import { Proposal } from "./pages/Proposal";
 import { Members } from "./pages/Members";
 import { Member } from "./pages/Member";
+import { TARGET_DAO } from "./targetDao";
+
+const routePath = `molochv3/${
+  TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID
+}/${TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS}`;
 
 export const Routes = () => {
   return (
     <Router>
       <Route path="/" element={<LayoutContainer />}>
         <Route index element={<Home />} />
-        <Route path="formtest/" element={<FormTest />} />
-        <Route path="dao" element={<Dao />} />
-        <Route path="safes" element={<Safes />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="proposals/" element={<Proposals />} />
-        <Route path="proposals/:proposalId" element={<Proposal />} />
-        <Route path="members/" element={<Members />} />
-        <Route path="members/:memberAddress" element={<Member />} />
+        <Route path={`${routePath}/formtest`} element={<FormTest />} />
+        <Route path={`${routePath}/dao`} element={<Dao />} />
+        <Route path={`${routePath}/safes`} element={<Safes />} />
+        <Route path={`${routePath}/settings`} element={<Settings />} />
+        <Route path={`${routePath}/proposals/`} element={<Proposals />} />
+        <Route
+          path={`${routePath}/proposal/:proposalId`}
+          element={<Proposal />}
+        />
+        <Route path={`${routePath}/members/`} element={<Members />} />
+        <Route
+          path={`${routePath}/member/:memberAddress`}
+          element={<Member />}
+        />
       </Route>
     </Router>
   );

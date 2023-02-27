@@ -12,4 +12,9 @@ export const TARGET_DAO: {
     SAFE_ADDRESS: "0xb64b12c4e68310fc222580dea1c86d202310f343",
     CHAIN_ID: "0x5",
   },
+  "0xf844b98df9ccdfbe5d460d0d7bdca232cf9da923": {
+    ADDRESS: "0xf844b98df9ccdfbe5d460d0d7bdca232cf9da923",
+    SAFE_ADDRESS: "0xeb0dc703b854791914f30b5a73dd04d8d22a9aff",
+    CHAIN_ID: "0x1",
+  },
 };
