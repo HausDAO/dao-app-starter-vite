@@ -1,8 +1,8 @@
-import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 
 import { H2, Link, ParMd, SingleColumnLayout } from "@daohaus/ui";
 import { HausAnimated } from "../components/HausAnimated";
+import { StyledRouterLink } from "../components/Layout";
 
 const LinkBox = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ export const Home = () => {
       <LinkBox>
         <Link href="https://github.com/HausDAO/monorepo">Github</Link>
         <Link href="https://admin.daohaus.fun/">Admin</Link>
-        <RouterLink to="/formtest">Example Form</RouterLink>
+        <StyledRouterLink to="/formtest">Example Form</StyledRouterLink>
       </LinkBox>
     </SingleColumnLayout>
   );

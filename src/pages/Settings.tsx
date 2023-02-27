@@ -11,11 +11,7 @@ export const Settings = () => {
   return (
     <SingleColumnLayout title="Settings">
       {dao && (
-        <DaoSettings
-          daoChain={daoChain as keyof Keychain}
-          daoId={dao.id}
-          includeLinks={false}
-        />
+        <DaoSettings daoChain={daoChain as keyof Keychain} daoId={dao.id} />
       )}
     </SingleColumnLayout>
   );

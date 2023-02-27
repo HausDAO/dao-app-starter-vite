@@ -1,12 +1,16 @@
 import { DHLayout, useDHConnect } from "@daohaus/connect";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { H4 } from "@daohaus/ui";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import { TARGET_DAO } from "../targetDao";
 import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
 
-export function HomeContainer() {
+export const LayoutContainer = () => {
   const location = useLocation();
+  const { proposalId, memberAddress } = useParams<{
+    proposalId: string;
+    memberAddress: string;
+  }>();
   const { provider, address } = useDHConnect();
   const { dao } = useDaoData({
     daoId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS,
@@ -18,8 +22,10 @@ export function HomeContainer() {
       pathname={location.pathname}
       navLinks={[
         { label: "Home", href: `/` },
-        { label: "Dao Overview", href: "/dao" },
+        { label: "DAO Overview", href: "/dao" },
         { label: "Safes", href: "/safes" },
+        { label: "Proposals", href: "/proposals" },
+        { label: "Members", href: "/members" },
         { label: "Settings", href: "/settings" },
       ]}
       leftNav={<H4>{dao?.name}</H4>}
@@ -28,6 +34,8 @@ export function HomeContainer() {
         targetDao={{
           daoChain: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
           daoId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS,
+          proposalId,
+          memberAddress,
         }}
       >
         <TXBuilder
@@ -42,6 +50,4 @@ export function HomeContainer() {
       </CurrentDaoProvider>
     </DHLayout>
   );
-}
-
-export default HomeContainer;
+};

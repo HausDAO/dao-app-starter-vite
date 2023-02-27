@@ -10,7 +10,7 @@ export const Safes = () => {
   return (
     <SingleColumnLayout>
       {dao && daoChain && (
-        <SafesList daoChain={daoChain} daoId={dao.id} includeLinks={false} />
+        <SafesList daoChain={daoChain} daoId={dao.id} includeLinks={true} />
       )}
     </SingleColumnLayout>
   );
