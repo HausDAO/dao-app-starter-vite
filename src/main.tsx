@@ -4,9 +4,14 @@ import { HashRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { DHConnectProvider } from "@daohaus/connect";
 import { HausThemeProvider } from "@daohaus/ui";
+import { Buffer } from "buffer";
 
 import { Routes } from "./Routes";
 import { TARGET_DAO } from "./targetDao";
+
+// This solves an issue when using WalletConnect and intercept Txs to create dao proposals
+// Related open issue: https://github.com/WalletConnect/walletconnect-monorepo/issues/748
+window.Buffer = window.Buffer || Buffer;
 
 const queryClient = new QueryClient();
 
