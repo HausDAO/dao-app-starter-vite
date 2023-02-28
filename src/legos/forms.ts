@@ -1,20 +1,20 @@
-import { FormLego } from '@daohaus/form-builder';
-import { FIELD } from './fields';
-import { TX } from './tx';
+import { FormLego } from "@daohaus/form-builder";
+import { APP_FIELD } from "./fields";
+import { APP_TX } from "./tx";
 
-export const FORM: Record<string, FormLego> = {
+export const APP_FORM: Record<string, FormLego> = {
   SIGNAL: {
-    id: 'SIGNAL',
-    title: 'Signal Form',
-    subtitle: 'Signal Proposal',
-    description: 'Ratify on-chain using a DAO proposal.',
+    id: "SIGNAL",
+    title: "Signal Form",
+    subtitle: "Signal Proposal",
+    description: "Ratify on-chain using a DAO proposal.",
     requiredFields: { title: true, description: true },
     log: true,
-    tx: TX.POST_SIGNAL,
+    tx: APP_TX.POST_SIGNAL,
     fields: [
-      FIELD.TITLE,
-      FIELD.DESCRIPTION,
-      FIELD.LINK,
+      APP_FIELD.TITLE,
+      APP_FIELD.DESCRIPTION,
+      APP_FIELD.LINK,
       // ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
