@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import hausBlockAnimated from "../assets/hats_icon.jpeg";
+import React from 'react';
+import styled from 'styled-components';
+import hausBlockAnimated from '../assets/hausBlockAnimated.svg';
 
 const ImageContainer = styled.div`
   display: flex;

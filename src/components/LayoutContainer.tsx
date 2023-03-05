@@ -24,7 +24,14 @@ export const LayoutContainer = () => {
   return (
     <DHLayout
       pathname={location.pathname}
-      navLinks={[{ label: "Home", href: `/` }]}
+      navLinks={[
+        { label: "Home", href: `/` },
+        { label: "DAO Overview", href: `${routePath}/dao` },
+        { label: "Safes", href: `${routePath}/safes` },
+        { label: "Proposals", href: `${routePath}/proposals` },
+        { label: "Members", href: `${routePath}/members` },
+        { label: "Settings", href: `${routePath}/settings` },
+      ]}
       leftNav={<H4>{dao?.name}</H4>}
     >
       <CurrentDaoProvider
