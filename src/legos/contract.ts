@@ -1,6 +1,7 @@
 import { LOCAL_ABI } from "@daohaus/abis";
 import { ContractLego } from "@daohaus/utils";
 import { CONTRACT_KEYCHAINS } from "@daohaus/keychain-utils";
+import HATS_ABI from "../abis/hats.json";
 
 export const APP_CONTRACT: Record<string, ContractLego> = {
   POSTER: {
@@ -48,5 +49,15 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     contractName: "LOOT_ERC20",
     abi: LOCAL_ABI.LOOT,
     targetAddress: ".dao.sharesAddress",
+  },
+  HATS: {
+    type: "static",
+    contractName: "Hats",
+    abi: HATS_ABI,
+    targetAddress: {
+      "0x1": "0x96bD657Fcc04c71B47f896a829E5728415cbcAa1",
+      "0x5": "0x96bD657Fcc04c71B47f896a829E5728415cbcAa1",
+      "0x64": "0x96bD657Fcc04c71B47f896a829E5728415cbcAa1",
+    },
   },
 };
