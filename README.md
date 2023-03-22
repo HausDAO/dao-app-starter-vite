@@ -6,10 +6,24 @@ Vite React Starter for a DAO app scoped to a single DAO.
 
 ### 1. Project Setup
 
+#### NPX/degit
+
+```bash
+npx degit HausDAO/dao-app-starter-vite my-daohaus-app
+
+cd my-daohaus-app
+
+git init
+
+yarn
+```
+
 #### SSH
 
 ```bash
 git clone git@github.com:HausDAO/moloch-v3-vite-starter.git
+
+git remote remove origin
 
 cd dh-moloch-v3-vite-starter
 
@@ -20,6 +34,8 @@ yarn
 
 ```bash
 git clone https://github.com/HausDAO/dh-v3-vite-starter.git
+
+git remote remove origin
 
 cd dh-moloch-v3-vite-starter
 
