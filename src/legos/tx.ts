@@ -16,6 +16,12 @@ export enum ProposalTypeIds {
 }
 
 export const APP_TX = {
+  COOKIEJAR: {
+    id: 'COOKIEJAR',
+    contract: APP_CONTRACT.COOKIEJAR,
+    method: 'reachInJar',
+    args: [],
+  },
   POST_SIGNAL: buildMultiCallTX({
     id: "POST_SIGNAL",
     JSONDetails: {

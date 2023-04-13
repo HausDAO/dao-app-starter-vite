@@ -1,8 +1,16 @@
 import { LOCAL_ABI } from "@daohaus/abis";
 import { ContractLego } from "@daohaus/utils";
 import { CONTRACT_KEYCHAINS } from "@daohaus/keychain-utils";
+import COOKIEJAR_ABI from '../abis/cookieJar.json';
+
 
 export const APP_CONTRACT: Record<string, ContractLego> = {
+  COOKIEJAR: {
+    type: 'static',
+    contractName: 'COOKIEJAR',
+    abi: COOKIEJAR_ABI,
+    targetAddress: '0x0751E1991f761325D61B1ae5E57d2d469ae6778d',
+  },
   POSTER: {
     type: "static",
     contractName: "Poster",

@@ -11,6 +11,7 @@ import { Members } from "./pages/Members";
 import { Member } from "./pages/Member";
 import { TARGET_DAO } from "./targetDao";
 import RageQuit from "./pages/RageQuit";
+import { Claims } from "./pages/Claim";
 
 const routePath = `molochv3/${
   TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID
@@ -36,6 +37,8 @@ export const Routes = () => {
           element={<Member />}
         />
         <Route path={`${routePath}/members/ragequit`} element={<RageQuit />} />
+        <Route path={`${routePath}/claims`} element={<Claims />} />
+
       </Route>
     </Router>
   );

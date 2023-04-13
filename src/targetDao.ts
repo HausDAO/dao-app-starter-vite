@@ -7,9 +7,9 @@ export const TARGET_DAO: {
     CHAIN_ID: ValidNetwork;
   };
 } = {
-  "0x0c495cb5b5f2313e84c4a1a584ac27f42fd78d29": {
-    ADDRESS: "0x0c495cb5b5f2313e84c4a1a584ac27f42fd78d29",
-    SAFE_ADDRESS: "0xc0f3a7737cb8338c7fa0de5bc23acb0060d9f642",
-    CHAIN_ID: "0x5",
+  "0x59cd41f7d0c488d2ad95bf378eb0e1833b9a8b7f": {
+    ADDRESS: "0x59cd41f7d0c488d2ad95bf378eb0e1833b9a8b7f",
+    SAFE_ADDRESS: "0x361371ce476cbace9b1aff7c671620ac705c649c",
+    CHAIN_ID: "0x64",
   },
 };

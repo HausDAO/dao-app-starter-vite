@@ -29,11 +29,11 @@ export const LayoutContainer = () => {
       pathname={location.pathname}
       navLinks={[
         { label: "Home", href: `/` },
-        { label: "DAO Overview", href: `${routePath}/dao` },
         { label: "Safes", href: `${routePath}/safes` },
-        { label: "Proposals", href: `${routePath}/proposals` },
         { label: "Members", href: `${routePath}/members` },
-        { label: "Settings", href: `${routePath}/settings` },
+        { label: "Claim", href: `${routePath}/claims` },
+        { label: "Stats", href: `${routePath}/members` },
+        { label: "New CookieJar", href: `${routePath}/formtest` },
       ]}
       leftNav={
         <div>
