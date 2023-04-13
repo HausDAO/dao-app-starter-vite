@@ -30,7 +30,7 @@ export const LayoutContainer = () => {
       navLinks={[
         { label: "Home", href: `/` },
         { label: "Safes", href: `${routePath}/safes` },
-        { label: "Members", href: `${routePath}/members` },
+        { label: "Allow List", href: `${routePath}/members` },
         { label: "Claim", href: `${routePath}/claims` },
         { label: "Stats", href: `${routePath}/members` },
         { label: "New CookieJar", href: `${routePath}/formtest` },

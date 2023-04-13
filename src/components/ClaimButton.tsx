@@ -37,10 +37,11 @@ export const ClaimButton = ({
     setIsLoading(true);
     fireTransaction({
       tx: APP_TX.COOKIEJAR,
-      staticArgs: ["test"],
-      //     `{"daoId":"${
-      //     TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS
-      //   }","table":"reason","queryType":"list","title":"to eat a cookie","description":"${reason}","link":"${link}"}`,
+      staticArgs: [
+        `{"daoId":"${
+          TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS
+        }","table":"reason","queryType":"list","title":"to eat a cookie","description":"${reason}","link":"${link}"}`,
+      ],
 
       lifeCycleFns: {
         onRequestSign() {
