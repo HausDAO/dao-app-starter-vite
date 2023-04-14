@@ -10,16 +10,28 @@ import { Countdown } from '../components/Countdown';
 import { ClaimDetails } from '../components/DetailsBox';
 import { ClaimButton } from '../components/ClaimButton';
 import { useState } from 'react';
+import { useRecords } from '@daohaus/moloch-v3-hooks';
+import { TARGET_DAO } from '../targetDao';
+import { useCookieReason } from '../hooks/useCookieReason';
 
 export const Claims = () => {
   const { address, chainId } = useDHConnect();
   const [showConfetti, setShowConfetti] = useState(false);
   const { width, height } = useWindowSize();
+
+  const { records } = useCookieReason({
+    daoId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS,
+    chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
+    recordType: "reason",
+  });
+
+  console.log("cookie reason records", records);
+  
   
 //   const { isIdle, isLoading, error, data, hasClaimed, canClaim, isMember, refetch } =
   const { isIdle, isLoading, error, data, hasClaimed, canClaim, refetch } =
     useClaim({
-      cookieJarAddress: '0x0751E1991f761325D61B1ae5E57d2d469ae6778d',
+      cookieJarAddress: '0xeca82593fe07a2c197f1b701eaae402a0da07707',
       userAddress: address,
       chainId: '0x64',
     });
@@ -80,7 +92,7 @@ export const Claims = () => {
             <ClaimDetails
               claimAmt={data.claimAmt}
               claimPeriod={data.claimPeriod}
-              unit={'WEENUS'}
+              unit={'xDai'}
             />
           </>
         }
@@ -97,7 +109,7 @@ export const Claims = () => {
             <ClaimDetails
               claimAmt={data.claimAmt}
               claimPeriod={data.claimPeriod}
-              unit={'WEENUS'}
+              unit={'xDai'}
             />
             <Input
               id="cookieReason"
@@ -126,7 +138,7 @@ export const Claims = () => {
             <ClaimDetails
               claimAmt={data.claimAmt}
               claimPeriod={data.claimPeriod}
-              unit={'WEENUS'}
+              unit={'xDai'}
             />
             <Input
               id="cookieReason"
@@ -138,7 +150,7 @@ export const Claims = () => {
               full
               placeholder="Link"
             />
-            <ClaimButton reason="test" link="testlink" onSuccess={() => {refetch(); setShowConfetti(true);}} />
+            <ClaimButton reason="yum yum" link="https://daohaus.club/" onSuccess={() => {refetch(); setShowConfetti(true);}} />
           </>
         }
       />

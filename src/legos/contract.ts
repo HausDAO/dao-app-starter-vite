@@ -9,7 +9,7 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     type: 'static',
     contractName: 'COOKIEJAR',
     abi: COOKIEJAR_ABI,
-    targetAddress: '0x0751E1991f761325D61B1ae5E57d2d469ae6778d',
+    targetAddress: '0xeca82593fe07a2c197f1b701eaae402a0da07707',
   },
   POSTER: {
     type: "static",

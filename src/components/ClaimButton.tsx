@@ -32,16 +32,15 @@ export const ClaimButton = ({
   const { fireTransaction } = useTxBuilder();
   const [txStatus, setTxStatus] = useState<StatusMsg | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  
   const handleClick = () => {
     setIsLoading(true);
     fireTransaction({
-      tx: APP_TX.COOKIEJAR,
-      staticArgs: [
-        `{"daoId":"${
-          TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS
-        }","table":"reason","queryType":"list","title":"to eat a cookie","description":"${reason}","link":"${link}"}`,
-      ],
+      tx: APP_TX.COOKIEJAR as TXLego,
+      callerState: {
+        reason,
+        link
+      },
 
       lifeCycleFns: {
         onRequestSign() {
@@ -85,7 +84,7 @@ export const ClaimButton = ({
         style={{ marginTop: "2rem", marginBottom: "2rem" }}
         disabled={isLoading}
       >
-        Claim Shares
+        Claim Cookie
       </Button>
       <ParMd>{txStatus}</ParMd>
     </>
