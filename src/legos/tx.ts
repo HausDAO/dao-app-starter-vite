@@ -42,6 +42,7 @@ export const APP_TX = {
         jsonSchema: {
           daoId: { type: "static", value: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS },
           title: { type: "static", value: "to eat a cookie"},
+          user: `.user`,
           description: `.reason`,
           link: `.link`,
           table: { type: "static", value: "reason" },

@@ -32,7 +32,7 @@ export const LayoutContainer = () => {
         { label: "Safes", href: `${routePath}/safes` },
         { label: "Allow List", href: `${routePath}/members` },
         { label: "Claim", href: `${routePath}/claims` },
-        { label: "Stats", href: `${routePath}/members` },
+        { label: "Stats", href: `${routePath}/history` },
         { label: "New CookieJar", href: `${routePath}/formtest` },
       ]}
       leftNav={

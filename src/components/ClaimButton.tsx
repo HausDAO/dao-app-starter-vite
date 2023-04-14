@@ -23,11 +23,13 @@ export const ClaimButton = ({
   onSuccess,
   reason,
   link,
+  user
 }: {
   onError?: () => void;
   onSuccess?: () => void;
   reason: string;
   link: string;
+  user: string | undefined;
 }) => {
   const { fireTransaction } = useTxBuilder();
   const [txStatus, setTxStatus] = useState<StatusMsg | null>(null);
@@ -39,7 +41,8 @@ export const ClaimButton = ({
       tx: APP_TX.COOKIEJAR as TXLego,
       callerState: {
         reason,
-        link
+        link,
+        user
       },
 
       lifeCycleFns: {
