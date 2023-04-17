@@ -1,5 +1,5 @@
 import { useDHConnect } from "@daohaus/connect";
-import { Input, Spinner } from "@daohaus/ui";
+import { Input, Label, Spinner } from "@daohaus/ui";
 
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
@@ -10,21 +10,35 @@ import { Countdown } from "../components/Countdown";
 import { ClaimDetails } from "../components/DetailsBox";
 import { ClaimButton } from "../components/ClaimButton";
 import { useState } from "react";
+import { TARGET_DAO } from "../targetDao";
 
 export const Claims = () => {
   const { address, chainId } = useDHConnect();
   const [showConfetti, setShowConfetti] = useState(false);
   const { width, height } = useWindowSize();
 
+  const [reason, setReason] = useState<string>("");
+  const [link, setLink] = useState<string>("");
+
   //   const { isIdle, isLoading, error, data, hasClaimed, canClaim, isMember, refetch } =
   const { isIdle, isLoading, error, data, hasClaimed, canClaim, refetch } =
     useClaim({
-      cookieJarAddress: "0xeca82593fe07a2c197f1b701eaae402a0da07707",
+      cookieJarAddress:
+        TARGET_DAO[import.meta.env.VITE_TARGET_KEY].COOKIEJAR_ADDRESS,
       userAddress: address,
-      chainId: "0x64",
+      chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
     });
 
-  const isGnosis = chainId === "0x64";
+  const isGnosis =
+    chainId === TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID;
+
+  const handleReasonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReason(e.target.value);
+  };
+
+  const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLink(e.target.value);
+  };
 
   if (isIdle)
     return (
@@ -107,11 +121,23 @@ export const Claims = () => {
               claimPeriod={data.claimPeriod}
               unit={"xDai"}
             />
-            <Input id="cookieReason" full placeholder="Reason for claiming" />
-            <Input id="cookieLink" full placeholder="Link" />
+            <Input
+              id="cookieReason"
+              full
+              onChange={handleReasonChange}
+              value={reason}
+              placeholder="Reason for claiming from cookie jar"
+            />
+            <Input
+              id="cookieLink"
+              full
+              onChange={handleLinkChange}
+              value={link}
+              placeholder="Link"
+            />
             <ClaimButton
-              reason="test"
-              link="testlink"
+              reason={reason}
+              link={link}
               user={address}
               onSuccess={() => {
                 refetch();
@@ -134,11 +160,28 @@ export const Claims = () => {
               claimPeriod={data.claimPeriod}
               unit={"xDai"}
             />
-            <Input id="cookieReason" full placeholder="Reason for claiming" />
-            <Input id="cookieLink" full placeholder="Link" />
+            <div className="input-box">
+              <Label>Reason for claiming</Label>
+              <Input
+              id="cookieReason"
+              full
+              onChange={handleReasonChange}
+              value={reason}
+              placeholder="Reason for claiming from cookie jar"
+            />
+              <Label>Link to details</Label>
+              
+            <Input
+              id="cookieLink"
+              full
+              onChange={handleLinkChange}
+              value={link}
+              placeholder="Link"
+            />
+            </div>
             <ClaimButton
-              reason="yum yum"
-              link="https://daohaus.club/"
+              reason={reason}
+              link={link}
               user={address}
               onSuccess={() => {
                 refetch();

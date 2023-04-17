@@ -36,6 +36,10 @@ export const ClaimButton = ({
   const [isLoading, setIsLoading] = useState(false);
   
   const handleClick = () => {
+    console.log("clicked");
+    console.log(reason);
+    console.log(link);
+    
     setIsLoading(true);
     fireTransaction({
       tx: APP_TX.COOKIEJAR as TXLego,

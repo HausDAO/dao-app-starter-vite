@@ -1,17 +1,18 @@
 import styled from "styled-components";
 
-import { H2, Link, ParMd, SingleColumnLayout } from "@daohaus/ui";
+import { H2, Label, Link, ParMd, SingleColumnLayout } from "@daohaus/ui";
 import { HausAnimated } from "../components/HausAnimated";
 import { StyledRouterLink } from "../components/Layout";
 import { usePoster } from "../hooks/usePoster";
 import { useDHConnect } from "@daohaus/connect";
+import { TARGET_DAO } from "../targetDao";
 
 export const History = () => {
   const { address, chainId } = useDHConnect();
 
   const { records, parsed } = usePoster({
     userAddress: address,
-    chainId: "0x64",
+    chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
   });
 
   //   const { records } = useCookieReason({
@@ -20,29 +21,32 @@ export const History = () => {
   //     recordType: "reason",
   //   });
 
-  console.log("cookie parsed", parsed);
+  // console.log("cookie parsed", parsed);
   return (
     <SingleColumnLayout>
       <H2>History</H2>
 
       {parsed &&
         parsed.map((record, idx) => {
-          return (
+          return record?.user ? (
             <div key={idx} style={{ marginBottom: "3rem" }}>
-              <ParMd style={{ marginBottom: "2.4rem" }} >
-                {record?.user}
+              <Label >User:</Label>
+              <ParMd style={{ marginBottom: ".4rem" }} >
+                {record?.user }
               </ParMd>
-              <ParMd style={{ marginBottom: "2.4rem" }} >
+              <Label >Title: </Label>
+              <ParMd style={{ marginBottom: ".4rem" }} >
                 {record?.title}
               </ParMd>
-              <ParMd style={{ marginBottom: "2.4rem" }}>
+              <Label >Description: </Label>
+              <ParMd style={{ marginBottom: ".4rem" }}>
                 {record?.description}
               </ParMd>
-              <ParMd style={{ marginBottom: "2.4rem" }}>
-                {record?.link}
-              </ParMd>
+
+              <Link href={record?.link}>link</Link>
+
             </div>
-          );
+          ): null;
         })}
     </SingleColumnLayout>
   );

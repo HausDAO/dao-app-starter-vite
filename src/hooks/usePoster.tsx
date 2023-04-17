@@ -1,9 +1,10 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { createContract } from '@daohaus/tx-builder';
-import { ValidNetwork, Keychain } from '@daohaus/keychain-utils';
-import { nowInSeconds } from '@daohaus/utils';
+import { createContract } from "@daohaus/tx-builder";
+import { ValidNetwork, Keychain } from "@daohaus/keychain-utils";
+import { nowInSeconds } from "@daohaus/utils";
 import { LOCAL_ABI } from "@daohaus/abis";
+import { TARGET_DAO } from "../targetDao";
 
 const fetchPosterRecords = async ({
   userAddress,
@@ -22,11 +23,12 @@ const fetchPosterRecords = async ({
   });
 
   try {
-    
-    const filter = posterContract.filters.NewPost("0xeca82593fe07a2c197f1b701eaae402a0da07707");
+    const filter = posterContract.filters.NewPost(
+      TARGET_DAO[import.meta.env.VITE_TARGET_KEY].COOKIEJAR_ADDRESS
+    );
     const events = await posterContract.queryFilter(filter);
     return {
-        events
+      events,
     };
   } catch (error: any) {
     console.error(error);
@@ -44,7 +46,7 @@ export const usePoster = ({
   rpcs?: Keychain;
 }) => {
   const { data, ...rest } = useQuery(
-    ['recordData', { userAddress }],
+    ["recordData", { userAddress }],
     () =>
       fetchPosterRecords({
         userAddress: userAddress as string,
@@ -54,14 +56,14 @@ export const usePoster = ({
     { enabled: !!userAddress }
   );
   const parsed = data?.events.map((record: any) => {
-    const parsedContent= JSON.parse(record.args[1])
+    const parsedContent = JSON.parse(record.args[1]);
     // console.log(parsedContent);
-    return parsedContent
-}
-    );
+    return parsedContent;
+  });
 
-  return { 
-    records: data, 
+  return {
+    records: data,
     parsed,
-    ...rest };
+    ...rest,
+  };
 };
