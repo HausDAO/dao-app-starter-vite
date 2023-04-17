@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { H2, Link, ParMd, SingleColumnLayout } from "@daohaus/ui";
 import { HausAnimated } from "../components/HausAnimated";
 import { StyledRouterLink } from "../components/Layout";
+// import cookie.png from assets
+import cookie from "../assets/cookie.png";
 
 const LinkBox = styled.div`
   display: flex;
@@ -13,16 +15,28 @@ const LinkBox = styled.div`
 export const Home = () => {
   return (
     <SingleColumnLayout>
-      <H2>DAOhaus is your haus</H2>
-      <HausAnimated />
+      <H2>COOKIE JAR</H2>
+      <img src={cookie} alt="cookie" height={"150px"} />
       <ParMd style={{ marginBottom: "2.4rem" }}>
-        Get started by editing src/pages/Home.tsx
+        Cookie Jar is a DAO owned slush fund
       </ParMd>
-      <LinkBox>
-        <Link href="https://github.com/HausDAO/monorepo">Github</Link>
-        <Link href="https://admin.daohaus.fun/">Admin</Link>
-        <StyledRouterLink to="/formtest">Example Form</StyledRouterLink>
-      </LinkBox>
+      
+      <ParMd style={{ marginBottom: "2.4rem" }}>
+        Cookies have daily limits and can be claimed by an anyone on the allowlist
+      </ParMd>
+
+      <ParMd style={{ marginBottom: "2.4rem" }}>
+        Allowlist is managed by the DAO
+      </ParMd>
+
+      <ParMd style={{ marginBottom: "2.4rem" }}>
+        Take out the trash? Claim a cookie. Don't forget to leave a note!
+      </ParMd>
+
+      <ParMd style={{ marginBottom: "2.4rem" }}>
+        But be careful, if you take too many cookies without good reason, you might just get kicked out of the DAO!
+      </ParMd>
+
     </SingleColumnLayout>
   );
 };

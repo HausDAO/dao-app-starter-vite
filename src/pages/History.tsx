@@ -7,6 +7,8 @@ import { usePoster } from "../hooks/usePoster";
 import { useDHConnect } from "@daohaus/connect";
 import { TARGET_DAO } from "../targetDao";
 
+import cookie from "../assets/cookie.png";
+
 export const History = () => {
   const { address, chainId } = useDHConnect();
 
@@ -30,6 +32,7 @@ export const History = () => {
         parsed.map((record, idx) => {
           return record?.user ? (
             <div key={idx} style={{ marginBottom: "3rem" }}>
+              <img src={cookie} alt="cookie" height={"20px"} /> 
               <Label >User:</Label>
               <ParMd style={{ marginBottom: ".4rem" }} >
                 {record?.user }

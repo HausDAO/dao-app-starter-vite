@@ -112,8 +112,8 @@ export const Claims = () => {
   if (data && !hasClaimed)
     return (
       <DisplayClaim
-        heading="It's time to claim your cookie!"
-        description="You have not claimed your cookie yet. Claiming your cookie will allow you to participate in the DAO."
+        heading="Go ahead, reach in and grab a cookie!"
+        description="You have not claimed your daily cookie yet. Claiming a cookie will send funds direct to you from the jar."
         element={
           <>
             <ClaimDetails
@@ -123,21 +123,21 @@ export const Claims = () => {
             />
             <div className="input-box">
               <Label>Reason for claiming</Label>
-            <Input
-              id="cookieReason"
-              full
-              onChange={handleReasonChange}
-              value={reason}
-              placeholder="Reason for claiming from cookie jar"
-            />
-            <Label>Link to details</Label>
-            <Input
-              id="cookieLink"
-              full
-              onChange={handleLinkChange}
-              value={link}
-              placeholder="Link"
-            />
+              <Input
+                id="cookieReason"
+                full
+                onChange={handleReasonChange}
+                value={reason}
+                placeholder="Reason for claiming from cookie jar"
+              />
+              <Label>Link to details</Label>
+              <Input
+                id="cookieLink"
+                full
+                onChange={handleLinkChange}
+                value={link}
+                placeholder="Link to PR / Issue / hackmd /etc."
+              />
             </div>
             <ClaimButton
               reason={reason}
@@ -155,8 +155,8 @@ export const Claims = () => {
   if (data && canClaim)
     return (
       <DisplayClaim
-        heading="It's time to claim your cookie!"
-        description="You have not claimed your cookie yet. Claiming your cookie will allow you to participate in the DAO."
+        heading="Go ahead, reach in and grab a cookie!"
+        description="You have not claimed your daily cookie yet. Claiming a cookie will send funds direct to you from the jar."
         element={
           <>
             <ClaimDetails
@@ -167,21 +167,21 @@ export const Claims = () => {
             <div className="input-box">
               <Label>Reason for claiming</Label>
               <Input
-              id="cookieReason"
-              full
-              onChange={handleReasonChange}
-              value={reason}
-              placeholder="Reason for claiming from cookie jar"
-            />
+                id="cookieReason"
+                full
+                onChange={handleReasonChange}
+                value={reason}
+                placeholder="Reason for claiming from cookie jar"
+              />
               <Label>Link to details</Label>
-              
-            <Input
-              id="cookieLink"
-              full
-              onChange={handleLinkChange}
-              value={link}
-              placeholder="Link"
-            />
+
+              <Input
+                id="cookieLink"
+                full
+                onChange={handleLinkChange}
+                value={link}
+                placeholder="Link to PR / Issue / hackmd /etc."
+              />
             </div>
             <ClaimButton
               reason={reason}
