@@ -121,6 +121,8 @@ export const Claims = () => {
               claimPeriod={data.claimPeriod}
               unit={"xDai"}
             />
+            <div className="input-box">
+              <Label>Reason for claiming</Label>
             <Input
               id="cookieReason"
               full
@@ -128,6 +130,7 @@ export const Claims = () => {
               value={reason}
               placeholder="Reason for claiming from cookie jar"
             />
+            <Label>Link to details</Label>
             <Input
               id="cookieLink"
               full
@@ -135,6 +138,7 @@ export const Claims = () => {
               value={link}
               placeholder="Link"
             />
+            </div>
             <ClaimButton
               reason={reason}
               link={link}
