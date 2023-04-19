@@ -87,14 +87,71 @@ export const Claims = () => {
         element={
           <>
             {showConfetti && (
-              <Confetti
-                width={width}
-                height={height}
-                gravity={0.05}
-                recycle={false}
-                onConfettiComplete={() => setShowConfetti(false)}
-              />
-            )}
+                <Confetti
+                  width={width}
+                  height={height}
+                  gravity={0.05}
+                  recycle={false}
+                  numberOfPieces={100}
+                  tweenDuration={20000}
+                  colors={[
+                    "#f5deb3",
+                    "#e6c281",
+                    "#8a6015",
+                    "#f44336",
+                    "#e91e63",
+                    "#9c27b0",
+                    "#673ab7",
+                    "#3f51b5",
+                    "#2196f3",
+                    "#03a9f4",
+                    "#00bcd4",
+                    "#009688",
+                    "#4CAF50",
+                    "#8BC34A",
+                    "#CDDC39",
+                    "#FFEB3B",
+                    "#FFC107",
+                    "#FF9800",
+                    "#FF5722",
+                    "#795548",
+                  ]}
+                  onConfettiComplete={() => setShowConfetti(false)}
+                  drawShape={(ctx) => {
+                    // Draw the cookie
+                    ctx.beginPath();
+                    // ctx.fillStyle = '#f5deb3';
+                    ctx.arc(40, 40, 32, 0, 2 * Math.PI);
+                    ctx.fill();
+
+                    // Draw the chocolate chips
+                    const numChips = 15;
+
+                    for (let i = 0; i < numChips; i++) {
+                      let randomSize = Math.floor(Math.random() * 2.4) + 1.6;
+                      let chipSize = randomSize;
+                      let chipX =
+                        Math.floor(Math.random() * (80 - chipSize * 2)) +
+                        chipSize;
+                      let chipY =
+                        Math.floor(Math.random() * (80 - chipSize * 2)) +
+                        chipSize;
+
+                      // Check if the chip is inside the cookie
+                      let dX = chipX - 40;
+                      let dY = chipY - 40;
+                      let distance = Math.sqrt(dX * dX + dY * dY);
+                      if (distance + chipSize <= 32) {
+                        // The chip is inside the cookie, so draw it
+                        ctx.beginPath();
+                        ctx.fillStyle = "#8b4513";
+                        ctx.arc(chipX, chipY, chipSize, 0, 2 * Math.PI);
+                        ctx.fill();
+                      }
+                    }
+                  }}
+                />
+              ))}
             <Countdown
               claimPeriod={data.claimPeriod}
               lastClaimed={data.lastClaimed}
