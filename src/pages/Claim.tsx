@@ -86,7 +86,7 @@ export const Claims = () => {
         description="You have already claimed your cookie. You will be able to claim again in the next claim period."
         element={
           <>
-            {showConfetti && (
+            {showConfetti  && (
                 <Confetti
                   width={width}
                   height={height}
@@ -151,7 +151,7 @@ export const Claims = () => {
                     }
                   }}
                 />
-              ))}
+              )}
             <Countdown
               claimPeriod={data.claimPeriod}
               lastClaimed={data.lastClaimed}
