@@ -37,6 +37,11 @@ export const Home = () => {
         But be careful, if you take too many cookies without good reason, you might just get kicked out of the DAO!
       </ParMd>
 
+      <LinkBox>
+        <StyledRouterLink to="/jars">Jars</StyledRouterLink>
+        <StyledRouterLink to="/create">New</StyledRouterLink>
+      </LinkBox>
+
     </SingleColumnLayout>
   );
 };
