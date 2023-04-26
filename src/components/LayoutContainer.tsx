@@ -9,9 +9,6 @@ const routePath = `molochv3/${
   TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID
 }/${TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS}`;
 
-// import cookie.png from assets
-import cookie from "../assets/cookie.png";
-
 export const LayoutContainer = () => {
   const location = useLocation();
   const { proposalId, memberAddress } = useParams<{
@@ -29,15 +26,13 @@ export const LayoutContainer = () => {
       pathname={location.pathname}
       navLinks={[
         { label: "Home", href: `/` },
-        { label: "DAO Overview", href: `${routePath}/dao` },
         { label: "Safes", href: `${routePath}/safes` },
-        { label: "Proposals", href: `${routePath}/proposals` },
-        { label: "Members", href: `${routePath}/members` },
-        { label: "Settings", href: `${routePath}/settings` },
+        { label: "Allow List", href: `${routePath}/members` },
+        { label: "Claim", href: `${routePath}/claims` },
+        { label: "Stats", href: `${routePath}/history` },
       ]}
       leftNav={
         <div>
-          <img src={cookie} alt="cookie" height={"150px"} />
           <H4>{dao?.name}</H4>
         </div>
       }

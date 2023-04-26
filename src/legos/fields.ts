@@ -27,4 +27,16 @@ export const APP_FIELD: Record<string, CustomFieldLego> = {
     label: "Test Field",
     placeholder: "Enter something",
   },
+  JARTYPE: {
+    id: "jarType",
+    type: "select",
+    label: "Jar Type",
+    options: [
+      {name: "DAO", value: "baal", key: "baal"}, 
+      {name: "erc20", value: "erc20", key: "erc20"}, 
+      {name: "erc721", value: "erc721", key: "erc721"}, 
+      {name: "hats", value: "hats", key: "hats"}, 
+      {name: "pickles", value: "pickles", key: "pickles"}
+    ],
+  },
 };

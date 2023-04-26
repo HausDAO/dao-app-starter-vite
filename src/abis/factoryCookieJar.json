@@ -1,0 +1,33 @@
+[
+  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "cookieJar",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "jarType",
+        "type": "string"
+      }
+    ],
+    "name": "SummonCookieJar",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_cookieType", "type": "string" },
+      { "internalType": "address", "name": "_singleton", "type": "address" },
+      { "internalType": "bytes", "name": "_initializer", "type": "bytes" }
+    ],
+    "name": "summonCookieJar",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
