@@ -1,56 +1,51 @@
 import styled from "styled-components";
 
-import { H2, Label, Link, ParMd, SingleColumnLayout } from "@daohaus/ui";
-import { HausAnimated } from "../components/HausAnimated";
-import { StyledRouterLink } from "../components/Layout";
+import {
+  BiColumnLayout,
+  ParMd,
+  SingleColumnLayout,
+} from "@daohaus/ui";
+
 import { usePoster } from "../hooks/usePoster";
 import { useDHConnect } from "@daohaus/connect";
 import { TARGET_DAO } from "../targetDao";
-
-import cookie from "../assets/cookie.png";
+import { HistoryCard } from "../components/HistoryCard";
+import { LeaderBoardCard } from "../components/LeaderBoardCard";
 
 export const History = () => {
   const { address, chainId } = useDHConnect();
 
-  const { records, parsed } = usePoster({
+  const { records, parsed, leaderBoard } = usePoster({
     userAddress: address,
     chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
   });
-
-  //   const { records } = useCookieReason({
-  //     daoId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS,
-  //     chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
-  //     recordType: "reason",
-  //   });
-
-  // console.log("cookie parsed", parsed);
+  
   return (
-    <SingleColumnLayout>
-      <H2>History</H2>
-
-      {parsed &&
-        parsed.map((record, idx) => {
-          return record?.user ? (
-            <div key={idx} style={{ marginBottom: "3rem" }}>
-              <img src={cookie} alt="cookie" height={"20px"} /> 
-              <Label >User:</Label>
-              <ParMd style={{ marginBottom: ".4rem" }} >
-                {record?.user }
-              </ParMd>
-              <Label >Title: </Label>
-              <ParMd style={{ marginBottom: ".4rem" }} >
-                {record?.title}
-              </ParMd>
-              <Label >Description: </Label>
-              <ParMd style={{ marginBottom: ".4rem" }}>
-                {record?.description}
-              </ParMd>
-
-              <Link href={record?.link}>link</Link>
-
-            </div>
-          ): null;
-        })}
-    </SingleColumnLayout>
+    <BiColumnLayout
+      left={
+        <SingleColumnLayout>
+          <ParMd style={{ marginBottom: "1rem" }}>History (newer first)</ParMd>
+          {parsed &&
+            parsed.map((record, idx) => {
+              return record?.user ? (
+                <HistoryCard record={record} key={idx} />
+              ) : null;
+            })}
+        </SingleColumnLayout>
+      }
+      right={
+        <SingleColumnLayout>
+          <ParMd style={{ marginBottom: "1rem" }}>Leader Board</ParMd>
+          {leaderBoard &&
+            leaderBoard.map((record, idx) => {
+              return (
+                <LeaderBoardCard record={record} key={idx}  />
+              );
+            })}
+        </SingleColumnLayout>
+      }
+      subtitle="your dashboard for information about your cookie jar"
+      title="History and Stats"
+    />
   );
 };
