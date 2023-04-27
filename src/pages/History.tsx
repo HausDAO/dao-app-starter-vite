@@ -47,6 +47,7 @@ export const History = () => {
               </ParMd>
 
               <Link href={record?.link}>link</Link>
+              <div style={{fontSize: "2rem", marginTop: "1rem"}}>👍 👎 </div>
 
             </div>
           ): null;
