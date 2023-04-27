@@ -14,6 +14,7 @@ import { usePoster } from "../hooks/usePoster";
 import { useDHConnect } from "@daohaus/connect";
 import { TARGET_DAO } from "../targetDao";
 import { HistoryCard } from "../components/HistoryCard";
+import { LeaderBoardCard } from "../components/LeaderBoardCard";
 
 export const History = () => {
   const { address, chainId } = useDHConnect();
@@ -35,6 +36,7 @@ export const History = () => {
     <BiColumnLayout
       left={
         <SingleColumnLayout>
+          <ParMd style={{ marginBottom: "1rem" }}>History</ParMd>
           {parsed &&
             parsed.map((record, idx) => {
               return record?.user ? (
@@ -45,20 +47,11 @@ export const History = () => {
       }
       right={
         <SingleColumnLayout>
-          Leader board
+          <ParMd style={{ marginBottom: "1rem" }}>Leader Board</ParMd>
           {leaderBoard &&
             leaderBoard.map((record, idx) => {
               return (
-                <div key={idx} style={{ marginBottom: "3rem", width: "50%" }}>
-                  <Label>Address:</Label>
-                  <ParMd style={{ marginBottom: ".4rem" }}>
-                    {record?.user}
-                  </ParMd>
-                  <Label>Count: </Label>
-                  <ParMd style={{ marginBottom: ".4rem" }}>
-                    {record?.count}
-                  </ParMd>
-                </div>
+                <LeaderBoardCard record={record} key={idx}  />
               );
             })}
         </SingleColumnLayout>
