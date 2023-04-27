@@ -59,16 +59,20 @@ export const usePoster = ({
     return JSON.parse(record.args[1]);
   });
 
+  // const timestamp = (await provider.getBlock(blockNumber)).timestamp;
+
   const addCount = parsed?.map((record: any) => {
-    const count = parsed.filter((parsed) => record.user === parsed.user).length
-    return {user: record.user, count};
+    const count = parsed.filter((parsed) => record.user === parsed.user).length;
+    return { user: record.user, count };
   });
-  
-  const leaderBoard = addCount?.filter((v,i,a)=>a.findIndex(v2=>(v2.user===v.user))===i).sort((a,b) => b.count - a.count);
+
+  const leaderBoard = addCount
+    ?.filter((v, i, a) => a.findIndex((v2) => v2.user === v.user) === i)
+    .sort((a, b) => b.count - a.count);
 
   return {
     records: data,
-    parsed,
+    parsed: parsed?.reverse(),
     leaderBoard,
     ...rest,
   };

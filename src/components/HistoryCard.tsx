@@ -19,8 +19,6 @@ interface HistoryRecord {
 
 export const HistoryCard = ({ record }: { record: HistoryRecord }) => {
   const { profile } = useProfile({ address: record?.user });
-  console.log("profile", profile);
-  console.log("record", record);
 
   return (
     <div style={{ marginBottom: "3rem", width: "50%" }}>

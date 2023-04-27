@@ -2,10 +2,6 @@ import styled from "styled-components";
 
 import {
   BiColumnLayout,
-  Card,
-  H2,
-  Label,
-  Link,
   ParMd,
   SingleColumnLayout,
 } from "@daohaus/ui";
@@ -23,20 +19,12 @@ export const History = () => {
     userAddress: address,
     chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
   });
-
-  //   const { records } = useCookieReason({
-  //     daoId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS,
-  //     chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
-  //     recordType: "reason",
-  //   });
-
-  console.log("leaderBoard", leaderBoard);
-
+  
   return (
     <BiColumnLayout
       left={
         <SingleColumnLayout>
-          <ParMd style={{ marginBottom: "1rem" }}>History</ParMd>
+          <ParMd style={{ marginBottom: "1rem" }}>History (newer first)</ParMd>
           {parsed &&
             parsed.map((record, idx) => {
               return record?.user ? (
