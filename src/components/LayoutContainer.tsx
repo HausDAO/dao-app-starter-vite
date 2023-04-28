@@ -1,9 +1,11 @@
-import { DHLayout, useDHConnect } from "@daohaus/connect";
+import { useDHConnect } from "@daohaus/connect";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { H4 } from "@daohaus/ui";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import { TARGET_DAO } from "../targetDao";
 import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
+import { CookieLayout } from "./CookieLayout";
+
 
 const routePath = `molochv3/${
   TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID
@@ -22,7 +24,7 @@ export const LayoutContainer = () => {
   });
 
   return (
-    <DHLayout
+    <CookieLayout
       pathname={location.pathname}
       navLinks={[
         { label: "Home", href: `/` },
@@ -55,6 +57,7 @@ export const LayoutContainer = () => {
           <Outlet />
         </TXBuilder>
       </CurrentDaoProvider>
-    </DHLayout>
+      
+    </CookieLayout>
   );
 };
