@@ -17,19 +17,19 @@ const CookieFooter = () => {
           href="https://daohaus.club/"
           target="_blank"
         >
-          <StyledImage alt="built by daohaus" alt="daohaus" src={daohaus} />
+          <StyledImage alt="built by daohaus" src={daohaus} />
         </Link>
         <Link href="https://publicnouns.wtf/" target="_blank">
-          <StyledImage alt="built by daohaus" alt="publicnouns" src={publicnouns} />
+          <StyledImage alt="built by daohaus" src={publicnouns} />
         </Link>
         <Link href="https://raidguild.org" target="_blank">
-          <StyledImage alt="built by daohaus" alt="raidguild" src={raidguild} />
+          <StyledImage alt="built by daohaus" src={raidguild} />
         </Link>
         <Link
           href="https://www.metacartel.org/"
           target="_blank"
         >
-          <StyledImage alt="built by daohaus" alt="metacartel" src={metacartel} />
+          <StyledImage alt="built by daohaus" src={metacartel} />
         </Link>
       </StyledFooter>
     </>
