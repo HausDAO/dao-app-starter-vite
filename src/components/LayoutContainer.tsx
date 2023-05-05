@@ -11,7 +11,13 @@ const routePath = `molochv3/${
   TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID
 }/${TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS}`;
 
+/**
+ * LayoutContainer component that wraps the entire application with a CookieLayout.
+ *
+ * @returns {JSX.Element} The JSX for the LayoutContainer component.
+ */
 export const LayoutContainer = () => {
+  // Hooks
   const location = useLocation();
   const { proposalId, memberAddress } = useParams<{
     proposalId: string;
@@ -23,6 +29,7 @@ export const LayoutContainer = () => {
     daoChain: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
   });
 
+  // Render
   return (
     <CookieLayout
       pathname={location.pathname}

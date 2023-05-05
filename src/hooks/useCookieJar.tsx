@@ -6,6 +6,7 @@ import { nowInSeconds } from '@daohaus/utils';
 
 import CookieJarAbi from '../abis/cookieJar.json';
 
+// fetch user cookie claim data from the blockchain
 const fetchUserClaim = async ({
   cookieJarAddress,
   userAddress,
@@ -25,10 +26,10 @@ const fetchUserClaim = async ({
   });
 
   try {
-    const lastClaimed = await claimsContract.claims(userAddress);
-    const claimAmt = await claimsContract.cookieAmount();
-    const claimPeriod = await claimsContract.periodLength();
-    const cookieToken = await claimsContract.cookieToken();
+    const lastClaimed = await claimsContract.claims(userAddress); // get last claimed timestamp for user
+    const claimAmt = await claimsContract.cookieAmount(); // get amount of cookie token to claim
+    const claimPeriod = await claimsContract.periodLength(); // get the period length for claims
+    const cookieToken = await claimsContract.cookieToken(); // get the cookie token address
     
     //const canClaim = await claimsContract.canClaim(userAddress);
 
@@ -45,6 +46,7 @@ const fetchUserClaim = async ({
   }
 };
 
+// custom hook to fetch and return user claim data
 export const useClaim = ({
   cookieJarAddress,
   userAddress,
@@ -67,11 +69,15 @@ export const useClaim = ({
       }),
     { enabled: !!userAddress }
   );
+  // determine if user has claimed cookies before
   const hasClaimed = data?.lastClaimed && Number(data.lastClaimed) > 0;
+  // determine if user can claim based on last claim time and claim period
   const canClaim =
   nowInSeconds() - Number(data?.lastClaimed) >= Number(data?.claimPeriod) ||
     !hasClaimed;
   // const isMember = data?.canClaim;
+
+  // return user claim data along with helper variables and the query status
   return { 
     data, 
     hasClaimed, 

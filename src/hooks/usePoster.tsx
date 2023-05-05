@@ -23,10 +23,12 @@ const fetchPosterRecords = async ({
   });
 
   try {
+    // Query the contract for new post events
     const filter = posterContract.filters.NewPost(
       TARGET_DAO[import.meta.env.VITE_TARGET_KEY].COOKIEJAR_ADDRESS
     );
     const events = await posterContract.queryFilter(filter);
+    // Return the events as an object
     return {
       events,
     };
@@ -55,17 +57,19 @@ export const usePoster = ({
       }),
     { enabled: !!userAddress }
   );
+
+  // Parse the events data and extract the relevant information
   const parsed = data?.events.map((record: any) => {
     return JSON.parse(record.args[1]);
   });
 
-  // const timestamp = (await provider.getBlock(blockNumber)).timestamp;
-
+  // Group the parsed records by user and count the number of records for each user
   const addCount = parsed?.map((record: any) => {
     const count = parsed.filter((parsed) => record.user === parsed.user).length;
     return { user: record.user, count };
   });
 
+  // Sort the addCount array by count and filter out duplicate user entries
   const leaderBoard = addCount
     ?.filter((v, i, a) => a.findIndex((v2) => v2.user === v.user) === i)
     .sort((a, b) => b.count - a.count);
