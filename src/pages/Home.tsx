@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { FieldValues } from 'react-hook-form';
+import { FieldValues } from "react-hook-form";
+import { ethers } from "ethers";
 
 import { H2, Link, ParMd, SingleColumnLayout, useToast } from "@daohaus/ui";
 import { FormBuilder, StatusMsg } from "@daohaus/form-builder";
@@ -12,88 +13,50 @@ import { handleErrorMessage } from "@daohaus/utils";
 import { APP_CONTRACT } from "../legos/contract";
 import { useDHConnect } from "@daohaus/connect";
 import { assembleTxArgs } from "../utils/summonHelpers";
+import { SummonerForm } from "../components/SummonerForm";
+import { SummonerLoading } from "../components/SummonerLoading";
+import { SummonerSuccess } from "../components/SummonerSuccess";
+import { SummonError } from "../components/SummonerError";
 
 const LinkBox = styled.div`
   display: flex;
   width: 50%;
   justify-content: space-between;
 `;
-
+export type SummonStates = "idle" | "loading" | "success" | "error";
 export const Home = () => {
-  const { fireTransaction } = useTxBuilder();
-  const { provider, address } = useDHConnect();
-  const { defaultToast, errorToast, successToast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState<null | StatusMsg>(null);
-  const [txHash, setTxHash] = useState<null | string>(null);
+  const { provider, chainId } = useDHConnect();
 
-  
-  const handleSubmit = async (formValues: FieldValues) => {
-    {
-      {
-        setIsLoading(true);
-        setTxHash(null);
-        setStatus(StatusMsg.Compile);
-
-        const args =  assembleTxArgs(formValues, TARGET_DAO.CHAIN_ID, address, TARGET_DAO.SQUAD);
-        const executed = await fireTransaction({
-          tx: {
-            id: 'SUMMON',
-            contract: APP_CONTRACT.BAALSUMMONER,
-            method: 'summonBaalFromReferrer',
-            staticArgs: args
-          },
-          lifeCycleFns: {
-            onRequestSign() {
-              setStatus(StatusMsg.Request);
-            },
-            onTxHash(txHash) {
-              setTxHash(txHash);
-              setStatus(StatusMsg.Await);
-            },
-            onTxError(error) {
-              setStatus(StatusMsg.TxErr);
-              const errMsg = handleErrorMessage({
-                error,
-                fallback: 'Could not decode error message',
-              });
-              setIsLoading(false);
-              errorToast({ title: StatusMsg.TxErr, description: errMsg });
-            },
-            onTxSuccess(...args) {
-              setStatus(
-                StatusMsg.TxSuccess
-              );
-              defaultToast({
-                title: StatusMsg.TxSuccess,
-                description: 'Transaction cycle complete.',
-              });
-            },
-          },
-        });
-        if (executed === undefined) {
-          setStatus(StatusMsg.NoContext);
-          return;
-        }
-        return executed;
-        }}
-  }
+  const [summonState, setSummonState] = useState<SummonStates>("idle");
+  const [txHash, setTxHash] = useState<string>("");
+  const [daoAddress, setDaoAddress] = useState<string>("");
+  const [errMsg, setErrMsg] = useState<string>("");
 
   return (
     <SingleColumnLayout>
-      <FormBuilder
-      form={APP_FORM.SUMMON}
-      targetNetwork={TARGET_DAO.CHAIN_ID}
-      customFields={AppFieldLookup }
-      
-      onSubmit={(values) => {
-        handleSubmit(values);
-      }}
-    />
-      <LinkBox style={{"marginTop": "2em"}}>
-        <Link href="https://github.com/HausDAO/monorepo">Github</Link>
-        <Link href="https://admin.daohaus.fun/">Admin</Link>
-      </LinkBox>
+      {summonState === "idle" && (
+        <SummonerForm
+          setSummonState={setSummonState}
+          setTxHash={setTxHash}
+          setDaoAddress={setDaoAddress}
+          setErrMsg={setErrMsg}
+        />
+      )}
+      {summonState === "loading" && <SummonerLoading txHash={txHash} />}
+      {summonState === "success" && (
+        <SummonerSuccess
+          chainId={chainId}
+          daoAddress={daoAddress}
+          setSummonState={setSummonState}
+        />
+      )}
+      {summonState === "error" && (
+        <SummonError
+          errMsg={errMsg}
+          setSummonState={setSummonState}
+          daoAddress={daoAddress}
+        />
+      )}
     </SingleColumnLayout>
   );
 };
