@@ -14,6 +14,7 @@ export const LayoutContainer = () => {
       pathname={location.pathname}
       navLinks={[
         { label: "Home", href: `/` },
+        { label: "Learn about tokens and DAOs", href: `/learn` },
       ]}
       leftNav={<H4>Summon</H4>}
     >

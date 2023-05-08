@@ -16,6 +16,17 @@ export enum ProposalTypeIds {
 }
 
 export const APP_TX = {
+  SUMMON: {
+    id: 'SUMMON',
+    contract: APP_CONTRACT.BAALSUMMONER,
+    method: 'summonBaalFromReferrer',
+    args: [
+
+      { type: "static", value: [1,2] },
+      { type: "static", value: [3,4] },
+      { type: "static", value: [] },
+    ]
+  },
   POST_SIGNAL: buildMultiCallTX({
     id: "POST_SIGNAL",
     JSONDetails: {

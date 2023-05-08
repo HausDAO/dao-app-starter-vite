@@ -27,4 +27,16 @@ export const APP_FIELD: Record<string, CustomFieldLego> = {
     label: "Test Field",
     placeholder: "Enter something",
   },
+  TOKEN_NAME: {
+    id: "tokenName",
+    type: "input",
+    label: "Token Name",
+    placeholder: "Nun Coin",
+  },
+  TOKEN_SYMBOL: {
+    id: "tokenSymbol",
+    type: "input",
+    label: "Token Symbol",
+    placeholder: "NUN",
+  },
 };

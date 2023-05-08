@@ -9,7 +9,7 @@ export const FormTest = () => {
   return (
     <FormBuilder
       form={APP_FORM.SIGNAL}
-      targetNetwork={TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID}
+      targetNetwork={TARGET_DAO.CHAIN_ID}
       customFields={{ ...MolochFields, ...AppFieldLookup }}
     />
   );

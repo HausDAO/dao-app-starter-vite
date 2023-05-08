@@ -2,6 +2,8 @@ import { LOCAL_ABI } from "@daohaus/abis";
 import { ContractLego } from "@daohaus/utils";
 import { CONTRACT_KEYCHAINS } from "@daohaus/keychain-utils";
 
+import SUMMONER_ABI from "../abis/summonerAbi.json";
+
 export const APP_CONTRACT: Record<string, ContractLego> = {
   POSTER: {
     type: "static",
@@ -49,4 +51,12 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     abi: LOCAL_ABI.LOOT,
     targetAddress: ".dao.sharesAddress",
   },
+  BAALSUMMONER: {
+    type: 'static',
+    contractName: 'BaalSummoner',
+    abi: SUMMONER_ABI,
+    targetAddress: {
+      "0xa4b1": "0x8a4A9E36106Ee290811B89e06e2faFE913507965",
+    },
+  }
 };

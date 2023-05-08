@@ -23,4 +23,17 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  SUMMON: {
+    id: "SUMMON",
+    title: "Summon a shit coin",
+    subtitle: "Learn about tokens and DAOs",
+    description: "This summons 1 trillion tokens, 90% to the summoner and 10% to Shit Coin DAO",
+    requiredFields: { tokenName: true, tokenSymbol: true },
+    log: true,
+    // tx: APP_TX.SUMMON,
+    fields: [
+      APP_FIELD.TOKEN_NAME,
+      APP_FIELD.TOKEN_SYMBOL,
+    ],
+  },
 };
