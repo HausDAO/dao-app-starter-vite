@@ -103,7 +103,7 @@ export const Learn = () => {
           </ParSm>
           <ParSm>
             Stake and join here{" "}
-            <Link href="https://coruscating-crepe-c3f4c8.netlify.app">
+            <Link href="https://join-big-squad.netlify.app/">
               Big Squad Onboarder
             </Link>
           </ParSm>
@@ -124,7 +124,7 @@ export const Learn = () => {
         </Link>
       </ParSm>
       <ParSm style={{ marginTop: "2em" }}>
-        If your not interested in a aquad coin you can still summon a DAO{" "}
+        If you're not interested in a squad coin you can still summon a DAO{" "}
         <Link href="https://summon.daohaus.club/">
           with the Advanced Summoner
         </Link>

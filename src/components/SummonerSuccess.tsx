@@ -113,6 +113,18 @@ import { List } from '@daohaus/ui/components/molecules/NavigationMenu/Navigation
               View DAO
             </Button>
           </Link>
+          <Link
+            href={`https://join-big-squad.netlify.app/`}
+            showExternalIcon={false}
+          >
+            <Button
+              // centerAlign={isMobile}
+              fullWidth={isMobile}
+            >
+              Join The Big Squad
+            </Button>
+          </Link>
+          
         </ButtonGroup>
       </div>
     );
