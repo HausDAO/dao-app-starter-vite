@@ -20,6 +20,7 @@ import {
 import { SummonStates } from '../pages/Home';
 import { HausAnimated } from './HausAnimated';
 import { NavLink } from 'react-router-dom';
+import { List } from '@daohaus/ui/components/molecules/NavigationMenu/NavigationMenu.styles';
   
   type SuccessProps = {
     daoAddress: string;
@@ -69,17 +70,8 @@ import { NavLink } from 'react-router-dom';
   
     return (
       <div>
-        <H1 className="title">
-          <Bold>New Token Summoned</Bold>
-        </H1>
-        <ParMd><Bold>Thats Not all though</Bold></ParMd>
-        <H2>{" "}Contrats! DAO Summoned too</H2>
-        <ParMd>
-          Learn more about{' '}
-          <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
-            Moloch v3
-          </Link>
-        </ParMd>
+        <H2>{" "}Contrats! Squad Coin Summoned</H2>
+        <ParMd>A Squad Coin is a token and a DAO and a part of something larger.</ParMd>
         <ParMd><NavLink to="learn">Learn more about Big Squad DAOs</NavLink></ParMd>
         <AddressInfoSection>
           <ParMd className="info">DAO contract:</ParMd>

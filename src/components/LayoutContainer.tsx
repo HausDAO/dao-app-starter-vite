@@ -14,9 +14,9 @@ export const LayoutContainer = () => {
       pathname={location.pathname}
       navLinks={[
         { label: "Home", href: `/` },
-        { label: "Learn about tokens and DAOs", href: `/learn` },
+        { label: "Learn about Squad Coins", href: `/learn` },
       ]}
-      leftNav={<H4>Summon</H4>}
+      leftNav={<H4>Squad Summoner</H4>}
     >
         <TXBuilder
           provider={provider}

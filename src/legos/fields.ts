@@ -31,12 +31,12 @@ export const APP_FIELD: Record<string, CustomFieldLego> = {
     id: "tokenName",
     type: "input",
     label: "Token Name",
-    placeholder: "Nun Coin",
+    placeholder: "Squad Coin",
   },
   TOKEN_SYMBOL: {
     id: "tokenSymbol",
     type: "input",
     label: "Token Symbol",
-    placeholder: "NUN",
+    placeholder: "SQUAD",
   },
 };
