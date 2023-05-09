@@ -95,14 +95,15 @@ export const Learn = () => {
           <ParMd>
             <strong>There are two ways to join the DAO.</strong>
           </ParMd>
-          <ParSm>1. You can join Big Squad DAO by staking ETH.</ParSm>
+          <ParSm>1. You can join Big Squad DAO by staking ETH.
+          </ParSm>
           <ParSm>
             2. You can get a Big Squad Coin from the DAO (for being a good
             squad).
           </ParSm>
           <ParSm>
             Stake and join here{" "}
-            <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
+            <Link href="https://coruscating-crepe-c3f4c8.netlify.app">
               Big Squad Onboarder
             </Link>
           </ParSm>
@@ -113,9 +114,15 @@ export const Learn = () => {
           <ParSm>2. Enabling ragequit</ParSm>
           <ParSm>3. Enabling transferability of shares</ParSm>
           <ParSm>4. Rewarding SC with shares</ParSm>
-          <ParSm>5. Selling SC</ParSm>
+          <ParSm>5. Selling or burning SC</ParSm>
         </div>
       </SingleColumnLayout>
+      <ParSm style={{ marginTop: "2em" }}>
+        If you summoned a squad coin but can't remember the DAO{" "}
+        <Link href="https://admin.daohaus.club/">
+          DAOhaus HUB demo
+        </Link>
+      </ParSm>
       <ParSm style={{ marginTop: "2em" }}>
         If your not interested in a aquad coin you can still summon a DAO{" "}
         <Link href="https://summon.daohaus.club/">
