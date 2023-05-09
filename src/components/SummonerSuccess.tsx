@@ -24,6 +24,7 @@ import { List } from '@daohaus/ui/components/molecules/NavigationMenu/Navigation
   
   type SuccessProps = {
     daoAddress: string;
+    tokenAddress: string;
     chainId: string | null | undefined;
     setSummonState: ReactSetter<SummonStates>;
   };
@@ -60,6 +61,7 @@ import { List } from '@daohaus/ui/components/molecules/NavigationMenu/Navigation
   
   export const SummonerSuccess = ({
     daoAddress,
+    tokenAddress,
     chainId,
     setSummonState,
   }: SuccessProps) => {
@@ -73,6 +75,15 @@ import { List } from '@daohaus/ui/components/molecules/NavigationMenu/Navigation
         <H2>{" "}Contrats! Squad Coin Summoned</H2>
         <ParMd>A Squad Coin is a token and a DAO and a part of something larger.</ParMd>
         <ParMd><NavLink to="learn">Learn more about Big Squad DAOs</NavLink></ParMd>
+        <AddressInfoSection>
+          <ParMd className="info">Token Address:</ParMd>
+          <AddressDisplay
+            address={tokenAddress}
+            copy
+            explorerNetworkId={chainId as keyof Keychain}
+            truncate={isMobile}
+          />
+        </AddressInfoSection>
         <AddressInfoSection>
           <ParMd className="info">DAO contract:</ParMd>
           <AddressDisplay

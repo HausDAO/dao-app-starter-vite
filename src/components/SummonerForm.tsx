@@ -35,6 +35,7 @@ type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
   setTxHash: ReactSetter<string>;
   setDaoAddress: ReactSetter<string>;
+  setTokenAddress: ReactSetter<string>;
   setErrMsg: ReactSetter<string>;
 };
 
@@ -42,6 +43,7 @@ export const SummonerForm = ({
   setSummonState,
   setTxHash,
   setDaoAddress,
+  setTokenAddress,
   setErrMsg,
 }: SummonFormProps) => {
   const { fireTransaction } = useTxBuilder();
@@ -89,10 +91,11 @@ export const SummonerForm = ({
               errorToast({ title: StatusMsg.TxErr, description: errMsg });
             },
             onTxSuccess(...args) {
+              console.log("args", args);
               const tx1 = args[0].logs.find(
                 (item) =>
                   item.topics.indexOf(
-                    "0xcf2f09cd0dbc149b12a3630a11b7d73476660f3d08d3dc7dcc79c6dec555ee7a"
+                    "0xcf2f09cd0dbc149b12a3630a11b7d73476660f3d08d3dc7dcc79c6dec555ee7a" //SummonBaal
                   ) > -1
               );
               const daoHexString =
@@ -102,6 +105,15 @@ export const SummonerForm = ({
 
               const daoAddress = ethers.utils.hexStripZeros(daoHexString);
               console.log("daoAddress", daoAddress);
+
+              const tokenHexString =
+                tx1?.topics[3] && tx1.topics[3].indexOf("0x") > -1
+                  ? tx1?.topics[3]
+                  : "0x" + tx1?.topics[3];
+
+              const tokenAddress = ethers.utils.hexStripZeros(tokenHexString);
+              console.log("tokenAddress", tokenAddress);
+
               setStatus(StatusMsg.TxSuccess);
               if (daoAddress) {
                 successToast({
@@ -110,6 +122,9 @@ export const SummonerForm = ({
                 });
                 setSummonState("success");
                 setDaoAddress(daoAddress);
+              }
+              if (tokenAddress) {
+                setTokenAddress(tokenAddress);
               }
             },
           },

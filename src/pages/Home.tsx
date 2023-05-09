@@ -30,6 +30,7 @@ export const Home = () => {
   const [summonState, setSummonState] = useState<SummonStates>("idle");
   const [txHash, setTxHash] = useState<string>("");
   const [daoAddress, setDaoAddress] = useState<string>("");
+  const [tokenAddress, setTokenAddress] = useState<string>("");
   const [errMsg, setErrMsg] = useState<string>("");
 
   return (
@@ -39,6 +40,7 @@ export const Home = () => {
           setSummonState={setSummonState}
           setTxHash={setTxHash}
           setDaoAddress={setDaoAddress}
+          setTokenAddress={setTokenAddress}
           setErrMsg={setErrMsg}
         />
       )}
@@ -47,6 +49,7 @@ export const Home = () => {
         <SummonerSuccess
           chainId={chainId}
           daoAddress={daoAddress}
+          tokenAddress={tokenAddress}
           setSummonState={setSummonState}
         />
       )}
