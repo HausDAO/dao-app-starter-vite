@@ -58,12 +58,19 @@ export const useCookieJarFactory = ({
   const parsed = data?.events.map((record: any) => {
     const parsedContent = record.args;
     // baal ["address","uint256","uint256","address","address","uint256","bool","bool"],
+    // safeaddr, period, amount, token, dao, threshold, useShares, useLoot
         
     const initParams = utils.defaultAbiCoder.decode(
         ["address","uint256","uint256","address"],
         parsedContent.initializer
       )
-    return {...parsedContent, initParams};
+    const initParamsObj = {
+      safe: initParams[0],
+      period: initParams[1],
+      amount: initParams[2],
+      token: initParams[3],
+    }
+    return {...parsedContent, initParamsObj};
   });
 
 

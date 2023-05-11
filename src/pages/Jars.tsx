@@ -41,6 +41,22 @@ export const Jars = () => {
               <ParMd style={{ marginBottom: ".4rem" }}>
                 {record?.jarType}
               </ParMd>
+              <Label >Safe: </Label>
+              <ParMd style={{ marginBottom: ".4rem" }}>
+                {record?.initParamsObj?.safe}
+              </ParMd>
+              <Label >Period: </Label>
+              <ParMd style={{ marginBottom: ".4rem" }}> 
+                {record?.initParamsObj?.period.toString()}
+              </ParMd>
+              <Label >Amount: </Label>
+              <ParMd style={{ marginBottom: ".4rem" }}> 
+                {record?.initParamsObj?.amount.toString()}
+              </ParMd>
+              <Label >Token: </Label>
+              <ParMd style={{ marginBottom: ".4rem" }}> 
+                {record?.initParamsObj?.token}
+              </ParMd>
 
               <ParMd style={{ marginBottom: ".4rem" }}>
                 Go to <NavLink to={`/claims/${TARGET_DAO.CHAIN_ID}/${record?.cookieJar}`}>Claim</NavLink> to claim your tokens.
