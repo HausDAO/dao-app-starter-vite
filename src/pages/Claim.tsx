@@ -217,7 +217,8 @@ export const Claims = () => {
               reason={reason}
               link={link}
               user={address}
-              receiver={receiver}
+              receiver={receiver || address}
+              cookieAddress={cookieAddress}
               onSuccess={() => {
                 refetch();
                 setShowConfetti(true);
@@ -264,7 +265,8 @@ export const Claims = () => {
               reason={reason}
               link={link}
               user={address}
-              receiver={receiver}
+              receiver={receiver || address}
+              cookieAddress={cookieAddress}
               onSuccess={() => {
                 refetch();
                 setShowConfetti(true);

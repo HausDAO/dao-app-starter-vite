@@ -250,15 +250,6 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "_reason", "type": "string" }
-    ],
-    "name": "reachInJar",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
       { "internalType": "address", "name": "cookieMonster", "type": "address" },
       { "internalType": "string", "name": "_reason", "type": "string" }
     ],

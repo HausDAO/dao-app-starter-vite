@@ -41,7 +41,6 @@ export const APP_TX = {
       {
         type: "JSONDetails",
         jsonSchema: {
-          daoId: { type: "static", value: TARGET_DAO.ADDRESS },
           title: { type: "static", value: "to eat a cookie"},
           user: `.user`,
           receiver: `.receiver`,

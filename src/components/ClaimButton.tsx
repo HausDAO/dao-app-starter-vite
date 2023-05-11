@@ -24,7 +24,8 @@ export const ClaimButton = ({
   reason,
   link,
   user,
-  receiver
+  receiver,
+  cookieAddress,
 }: {
   onError?: () => void;
   onSuccess?: () => void;
@@ -32,6 +33,7 @@ export const ClaimButton = ({
   link: string;
   user: string | undefined;
   receiver: string | undefined;
+  cookieAddress: string | undefined;
 }) => {
   const { fireTransaction } = useTxBuilder();
   const [txStatus, setTxStatus] = useState<StatusMsg | null>(null);
@@ -46,7 +48,8 @@ export const ClaimButton = ({
         reason,
         link,
         user,
-        receiver
+        receiver,
+        cookieAddress
       },
 
       lifeCycleFns: {

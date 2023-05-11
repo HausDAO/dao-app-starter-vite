@@ -56,7 +56,7 @@ export const usePoster = ({
 }) => {
 
   const { data, ...rest } = useQuery(
-    ["recordData", { userAddress }],
+    ["posterData", { cookieAddress }],
     () =>
       fetchPosterRecords({
         userAddress: userAddress as string,
