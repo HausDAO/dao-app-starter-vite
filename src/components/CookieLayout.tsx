@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { DaoHausNavProps } from '@daohaus/connect/components/DaoHausNav/DaoHausNav.types';
 import { DaoHausNav, DaoHausNavMenu } from '@daohaus/connect';
 import CookieFooter from './CookieFooter';
+import { useParams } from 'react-router-dom';
 
 const Header = styled.div`
   display: flex;
@@ -36,6 +37,8 @@ export const CookieLayout = ({
   appNavLinks?: ComponentProps<typeof AppSwitcher>;
   pathname: string;
 }) => {
+  const { cookieAddress, cookieChain } = useParams();
+  
   return (
     <OuterLayout>
       <Header>
@@ -45,11 +48,11 @@ export const CookieLayout = ({
         </div>
         <DaoHausNav />
       </Header>
-      <DaoHausNavMenu
+      {cookieAddress && <DaoHausNavMenu
         navLinks={navLinks}
         dropdownLinks={dropdownLinks}
         pathname={pathname}
-      />
+      />}
       <MainLayout>{children}</MainLayout>
       <CookieFooter />
     </OuterLayout>

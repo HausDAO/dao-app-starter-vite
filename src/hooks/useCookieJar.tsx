@@ -13,11 +13,14 @@ const fetchUserClaim = async ({
   chainId,
   rpcs,
 }: {
-  cookieJarAddress: string;
+  cookieJarAddress: string | undefined | null;
   userAddress: string;
-  chainId: ValidNetwork;
+  chainId: ValidNetwork | undefined | null;
   rpcs?: Keychain;
 }) => {
+  if (!cookieJarAddress || !chainId) {
+    throw new Error('No cookie jar address provided');
+  }
   const claimsContract = createContract({
     address: cookieJarAddress,
     abi: CookieJarAbi,
@@ -53,9 +56,9 @@ export const useClaim = ({
   chainId,
   rpcs,
 }: {
-  cookieJarAddress: string;
+  cookieJarAddress: string | undefined | null;
   userAddress: string | undefined | null;
-  chainId: ValidNetwork;
+  chainId: ValidNetwork | undefined | null;
   rpcs?: Keychain;
 }) => {
   const { data, ...rest } = useQuery(

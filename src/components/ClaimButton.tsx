@@ -23,22 +23,21 @@ export const ClaimButton = ({
   onSuccess,
   reason,
   link,
-  user
+  user,
+  receiver
 }: {
   onError?: () => void;
   onSuccess?: () => void;
   reason: string;
   link: string;
   user: string | undefined;
+  receiver: string | undefined;
 }) => {
   const { fireTransaction } = useTxBuilder();
   const [txStatus, setTxStatus] = useState<StatusMsg | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
   const handleClick = () => {
-    console.log("clicked");
-    console.log(reason);
-    console.log(link);
     
     setIsLoading(true);
     fireTransaction({
@@ -46,7 +45,8 @@ export const ClaimButton = ({
       callerState: {
         reason,
         link,
-        user
+        user,
+        receiver
       },
 
       lifeCycleFns: {

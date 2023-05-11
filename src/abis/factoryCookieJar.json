@@ -14,6 +14,12 @@
         "internalType": "string",
         "name": "jarType",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "initializer",
+        "type": "bytes"
       }
     ],
     "name": "SummonCookieJar",
@@ -21,7 +27,7 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "_cookieType", "type": "string" },
+      { "internalType": "string", "name": "details", "type": "string" },
       { "internalType": "address", "name": "_singleton", "type": "address" },
       { "internalType": "bytes", "name": "_initializer", "type": "bytes" }
     ],

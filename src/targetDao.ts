@@ -1,19 +1,21 @@
 import { ValidNetwork } from "@daohaus/keychain-utils";
 
 export const TARGET_DAO: {
-  [key: string]: {
+
     ADDRESS: string;
     SAFE_ADDRESS: string;
     COOKIEJAR_ADDRESS: string;
+    COOKIEJAR_FACTORY_ADDRESS: string;
     CHAIN_ID: ValidNetwork;
-  };
+
 } = {
-  "0x431ff10c6f787ea69cde95ed1528f22c15678ed4": {
-    ADDRESS: "0x431ff10c6f787ea69cde95ed1528f22c15678ed4",
-    SAFE_ADDRESS: "0x49d136293031736942da75223050292528d00e7d",
-    COOKIEJAR_ADDRESS: "0xd255cb6ad25d42b40f7bbf1ae1196b3e72a38937",
+
+    ADDRESS: "0xf121defed4e533c6e39d25359d8749969d299dc3",
+    SAFE_ADDRESS: "0x148d0d8d3a631c16b81a115917b5c3e5e5d9436f",
+    COOKIEJAR_ADDRESS: "0x71f9BB93F9eBF1d9Eb810052a291810CDD742201",
+    COOKIEJAR_FACTORY_ADDRESS: "0x47135bC487036deea0c51bc9A63A6dAA9eA367ee",
     CHAIN_ID: "0x64",
-  },
+
 };
 // cookie tester
 // must lowercase

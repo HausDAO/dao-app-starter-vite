@@ -8,20 +8,22 @@ import { TARGET_DAO } from "../targetDao";
 
 import cookie from "../assets/cookie.png";
 import { useCookieJarFactory } from "../hooks/useCookieJarFactory";
+import { NavLink } from "react-router-dom";
 
 export const Jars = () => {
   const { address, chainId } = useDHConnect();
 
-  const { records, parsed } = useCookieJarFactory({
+  const { records, parsed, isLoading } = useCookieJarFactory({
     userAddress: address,
-    chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
+    chainId: TARGET_DAO.CHAIN_ID,
   });
-
+  
 
   return (
     <SingleColumnLayout>
       <H2>Jars</H2>
 
+      {isLoading && <HausAnimated />}
       {parsed &&
         parsed.map((record, idx) => {
           return record?.cookieJar ? (
@@ -33,15 +35,15 @@ export const Jars = () => {
               </ParMd>
               <Label >Type: </Label>
               <ParMd style={{ marginBottom: ".4rem" }} >
-                {record?.jarType}
+                ??
               </ParMd>
               <Label >Description: </Label>
               <ParMd style={{ marginBottom: ".4rem" }}>
-                {record?.description}
+                {record?.jarType}
               </ParMd>
 
               <ParMd style={{ marginBottom: ".4rem" }}>
-                Go to
+                Go to <NavLink to={`/claims/${TARGET_DAO.CHAIN_ID}/${record?.cookieJar}`}>Claim</NavLink> to claim your tokens.
               </ParMd>
 
 

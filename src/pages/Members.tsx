@@ -21,8 +21,8 @@ export const Members = () => {
         <>
           <Link
             href={`https://admin.daohaus.fun/#/molochv3/${
-              TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID
-            }/${TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS}`}
+              TARGET_DAO.CHAIN_ID
+            }/${TARGET_DAO.ADDRESS}`}
             style={{ marginBottom: "2rem" }}
           >
             View Full DAO admin

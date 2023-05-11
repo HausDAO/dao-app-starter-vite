@@ -37,12 +37,14 @@ export const APP_TX = {
     contract: APP_CONTRACT.COOKIEJAR,
     method: 'reachInJar',
     args: [
+      `.receiver`,
       {
         type: "JSONDetails",
         jsonSchema: {
-          daoId: { type: "static", value: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS },
+          daoId: { type: "static", value: TARGET_DAO.ADDRESS },
           title: { type: "static", value: "to eat a cookie"},
           user: `.user`,
+          receiver: `.receiver`,
           description: `.reason`,
           link: `.link`,
           table: { type: "static", value: "reason" },
@@ -51,36 +53,4 @@ export const APP_TX = {
       },
     ],
   },
-  POST_SIGNAL: buildMultiCallTX({
-    id: "POST_SIGNAL",
-    JSONDetails: {
-      type: "JSONDetails",
-      jsonSchema: {
-        title: `.formValues.title`,
-        description: `.formValues.description`,
-        link: `.formValues.link`,
-        contentURIType: { type: "static", value: "url" },
-        proposalType: { type: "static", value: ProposalTypeIds.Signal },
-      },
-    },
-    actions: [
-      {
-        contract: APP_CONTRACT.POSTER,
-        method: "post",
-        args: [
-          {
-            type: "JSONDetails",
-            jsonSchema: {
-              title: `.formValues.title`,
-              description: `.formValues.description`,
-              contentURI: `.formValues.link`,
-              contentURIType: { type: "static", value: "url" },
-              proposalType: { type: "static", value: ProposalTypeIds.Signal },
-            },
-          },
-          { type: "static", value: POSTER_TAGS.signalProposal },
-        ],
-      },
-    ],
-  }),
 };

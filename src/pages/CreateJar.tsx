@@ -27,7 +27,7 @@ export const CreateJar = () => {
   return (
     <FormBuilder
       form={APP_FORM.CREATEJAR}
-      targetNetwork={TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID}
+      targetNetwork={TARGET_DAO.CHAIN_ID}
     />
   );
 }; */

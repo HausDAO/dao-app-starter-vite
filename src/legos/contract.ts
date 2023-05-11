@@ -10,8 +10,8 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     contractName: "COOKIEJAR",
     abi: COOKIEJAR_ABI,
     targetAddress: {
-      [TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID]:
-        TARGET_DAO[import.meta.env.VITE_TARGET_KEY].COOKIEJAR_ADDRESS,
+      [TARGET_DAO.CHAIN_ID]:
+        TARGET_DAO.COOKIEJAR_ADDRESS,
     },
   },
   POSTER: {
