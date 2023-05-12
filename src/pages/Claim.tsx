@@ -4,7 +4,7 @@ import { Checkbox, Input, Label, Spinner } from "@daohaus/ui";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 
-import { useClaim } from "../hooks/useCookieJar";
+import { useCookieJar } from "../hooks/useCookieJar";
 import { DisplayClaim } from "../components/DisplayClaim";
 import { Countdown } from "../components/Countdown";
 import { ClaimDetails } from "../components/DetailsBox";
@@ -28,7 +28,7 @@ export const Claims = () => {
 
   //   const { isIdle, isLoading, error, data, hasClaimed, canClaim, isMember, refetch } =
   const { isIdle, isLoading, error, data, hasClaimed, canClaim, refetch } =
-    useClaim({
+    useCookieJar({
       cookieJarAddress: cookieAddress,
       userAddress: address,
       chainId: TARGET_DAO.CHAIN_ID,

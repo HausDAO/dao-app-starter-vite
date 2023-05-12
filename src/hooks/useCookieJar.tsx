@@ -21,7 +21,7 @@ const fetchUserClaim = async ({
   if (!cookieJarAddress || !chainId) {
     throw new Error('No cookie jar address provided');
   }
-  const claimsContract = createContract({
+  const cookieContract = createContract({
     address: cookieJarAddress,
     abi: CookieJarAbi,
     chainId,
@@ -29,19 +29,21 @@ const fetchUserClaim = async ({
   });
 
   try {
-    const lastClaimed = await claimsContract.claims(userAddress); // get last claimed timestamp for user
-    const claimAmt = await claimsContract.cookieAmount(); // get amount of cookie token to claim
-    const claimPeriod = await claimsContract.periodLength(); // get the period length for claims
-    const cookieToken = await claimsContract.cookieToken(); // get the cookie token address
-    
-    //const canClaim = await claimsContract.canClaim(userAddress);
+    const lastClaimed = await cookieContract.claims(userAddress); // get last claimed timestamp for user
+    const claimAmt = await cookieContract.cookieAmount(); // get amount of cookie token to claim
+    const claimPeriod = await cookieContract.periodLength(); // get the period length for claims
+    const cookieToken = await cookieContract.cookieToken(); // get the cookie token address
+    const targetSafe = await cookieContract.target(); // get the target safe address
+    // const isAllowList = await cookieContract.isAllowList(); // todo: check if user is on isAllowList(userAddress)
+
 
     return {
       lastClaimed: lastClaimed.toString() as string,
       claimAmt: claimAmt.toString() as string,
       claimPeriod: claimPeriod.toString() as string,
       cookieToken: cookieToken.toString() as string,
-      // canClaim: canClaim
+      targetSafe: targetSafe.toString() as string,
+      // isAllowList: isAllowList as boolean, 
     };
   } catch (error: any) {
     console.error(error);
@@ -50,7 +52,7 @@ const fetchUserClaim = async ({
 };
 
 // custom hook to fetch and return user claim data
-export const useClaim = ({
+export const useCookieJar = ({
   cookieJarAddress,
   userAddress,
   chainId,

@@ -59,6 +59,15 @@ export const useCookieJarFactory = ({
     const parsedContent = record.args;
     // baal ["address","uint256","uint256","address","address","uint256","bool","bool"],
     // safeaddr, period, amount, token, dao, threshold, useShares, useLoot
+
+    // let parsedDetails;
+    // try{
+    //   parsedDetails = JSON.parse(parsedContent.details);
+    // }
+    // catch{
+    //   parsedDetails = parsedContent.details;
+    // }
+    
         
     const initParams = utils.defaultAbiCoder.decode(
         ["address","uint256","uint256","address"],
@@ -70,7 +79,7 @@ export const useCookieJarFactory = ({
       amount: initParams[2],
       token: initParams[3],
     }
-    return {...parsedContent, initParamsObj};
+    return {...parsedContent, initParamsObj, parsedDetails};
   });
 
 
