@@ -8,45 +8,28 @@ import { TARGET_DAO } from "../targetDao";
 
 import cookie from "../assets/cookie.png";
 import { useCookieJarFactory } from "../hooks/useCookieJarFactory";
+import { NavLink } from "react-router-dom";
+import { JarCard } from "../components/JarCard";
 
 export const Jars = () => {
   const { address, chainId } = useDHConnect();
 
-  const { records, parsed } = useCookieJarFactory({
+  const { records, parsed, isLoading } = useCookieJarFactory({
     userAddress: address,
-    chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
+    chainId: TARGET_DAO.CHAIN_ID,
   });
-
+  
+  // TODO: filter on only jars user is on allow list of
 
   return (
     <SingleColumnLayout>
       <H2>Jars</H2>
 
+      {isLoading && <HausAnimated />}
       {parsed &&
         parsed.map((record, idx) => {
           return record?.cookieJar ? (
-            <div key={idx} style={{ marginBottom: "3rem" }}>
-              <img src={cookie} alt="cookie" height={"20px"} /> 
-              <Label >Address:</Label>
-              <ParMd style={{ marginBottom: ".4rem" }} >
-                {record?.cookieJar }
-              </ParMd>
-              <Label >Type: </Label>
-              <ParMd style={{ marginBottom: ".4rem" }} >
-                {record?.jarType}
-              </ParMd>
-              <Label >Description: </Label>
-              <ParMd style={{ marginBottom: ".4rem" }}>
-                {record?.description}
-              </ParMd>
-
-              <ParMd style={{ marginBottom: ".4rem" }}>
-                Go to
-              </ParMd>
-
-
-
-            </div>
+            <JarCard record={record} user={address} key={idx} />
           ): null;
         })}
     </SingleColumnLayout>

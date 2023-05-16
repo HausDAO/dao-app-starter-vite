@@ -23,30 +23,32 @@ export const ClaimButton = ({
   onSuccess,
   reason,
   link,
-  user
+  user,
+  receiver,
+  cookieAddress,
 }: {
   onError?: () => void;
   onSuccess?: () => void;
   reason: string;
   link: string;
   user: string | undefined;
+  receiver: string | undefined;
+  cookieAddress: string | undefined;
 }) => {
   const { fireTransaction } = useTxBuilder();
   const [txStatus, setTxStatus] = useState<StatusMsg | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const handleClick = () => {
-    console.log("clicked");
-    console.log(reason);
-    console.log(link);
-    
     setIsLoading(true);
     fireTransaction({
-      tx: APP_TX.COOKIEJAR as TXLego,
+      tx: APP_TX.REACH_IN_JAR as TXLego,
       callerState: {
         reason,
         link,
-        user
+        user,
+        receiver,
+        cookieAddress,
       },
 
       lifeCycleFns: {

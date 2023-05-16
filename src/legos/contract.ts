@@ -3,16 +3,14 @@ import { ContractLego } from "@daohaus/utils";
 import { CONTRACT_KEYCHAINS } from "@daohaus/keychain-utils";
 import COOKIEJAR_ABI from "../abis/cookieJar.json";
 import { TARGET_DAO } from "../targetDao";
+import JAR_FACTORY_ABI from "../abis/factoryCookieJar.json";
 
 export const APP_CONTRACT: Record<string, ContractLego> = {
   COOKIEJAR: {
     type: "static",
     contractName: "COOKIEJAR",
     abi: COOKIEJAR_ABI,
-    targetAddress: {
-      [TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID]:
-        TARGET_DAO[import.meta.env.VITE_TARGET_KEY].COOKIEJAR_ADDRESS,
-    },
+    targetAddress: ".cookieAddress",
   },
   POSTER: {
     type: "static",
@@ -59,5 +57,11 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     contractName: "LOOT_ERC20",
     abi: LOCAL_ABI.LOOT,
     targetAddress: ".dao.sharesAddress",
+  },
+  SUMMON_JAR: {
+    type: "static",
+    contractName: "SUMMON_JAR",
+    abi: JAR_FACTORY_ABI,
+    targetAddress: ".factoryAddress",
   },
 };

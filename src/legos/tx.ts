@@ -1,7 +1,5 @@
-import { POSTER_TAGS } from "@daohaus/utils";
 import { buildMultiCallTX } from "@daohaus/tx-builder";
 import { APP_CONTRACT } from "./contract";
-import { TARGET_DAO } from "../targetDao";
 
 export enum ProposalTypeIds {
   Signal = "SIGNAL",
@@ -30,27 +28,42 @@ export enum ProposalTypeIds {
 //   TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS
 // }","table":"reason","queryType":"list","title":"to eat a cookie","description":"${reason}","link":"${link}"}`,
 
-// 
+//
 export const APP_TX = {
-  COOKIEJAR: {
-    id: 'COOKIEJAR',
-    contract: APP_CONTRACT.COOKIEJAR,
-    method: 'reachInJar',
-    args: [
+  REACH_IN_JAR: buildMultiCallTX({
+    id: "COOKIEJAR",
+    JSONDetails: {
+      type: "JSONDetails",
+      jsonSchema: {
+        title: `.formValues.title`,
+        description: `.formValues.description`,
+        contentURI: `.formValues.link`,
+        contentURIType: { type: "static", value: "url" },
+        proposalType: { type: "static", value: ProposalTypeIds.Signal },
+      },
+    },
+    actions: [
       {
-        type: "JSONDetails",
-        jsonSchema: {
-          daoId: { type: "static", value: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].ADDRESS },
-          title: { type: "static", value: "to eat a cookie"},
-          user: `.user`,
-          description: `.reason`,
-          link: `.link`,
-          table: { type: "static", value: "reason" },
-          queryType: { type: "static", value: "list" },
-        },
+        contract: APP_CONTRACT.COOKIEJAR,
+        method: "reachInJar",
+        args: [
+          `.reason`,
+          {
+            type: "JSONDetails",
+            jsonSchema: {
+              title: { type: "static", value: "to eat a cookie" },
+              user: `.user`,
+              receiver: `.receiver`,
+              description: `.reason`,
+              link: `.link`,
+              table: { type: "static", value: "reason" },
+              queryType: { type: "static", value: "list" },
+            },
+          },
+        ],
       },
     ],
-  },
+  }),
   POST_SIGNAL: buildMultiCallTX({
     id: "POST_SIGNAL",
     JSONDetails: {
@@ -58,27 +71,63 @@ export const APP_TX = {
       jsonSchema: {
         title: `.formValues.title`,
         description: `.formValues.description`,
-        link: `.formValues.link`,
+        contentURI: `.formValues.link`,
         contentURIType: { type: "static", value: "url" },
         proposalType: { type: "static", value: ProposalTypeIds.Signal },
       },
     },
     actions: [
       {
-        contract: APP_CONTRACT.POSTER,
-        method: "post",
+        contract: APP_CONTRACT.COOKIEJAR,
+        method: "postReason",
         args: [
+          `.receiver`,
           {
             type: "JSONDetails",
             jsonSchema: {
-              title: `.formValues.title`,
-              description: `.formValues.description`,
-              contentURI: `.formValues.link`,
-              contentURIType: { type: "static", value: "url" },
-              proposalType: { type: "static", value: ProposalTypeIds.Signal },
+              title: { type: "static", value: "sweet or salty?" },
+              user: `.user`,
+              receiver: `.receiver`,
+              description: `.reason`,
+              link: `.link`,
+              table: { type: "static", value: "reason" },
+              queryType: { type: "static", value: "list" },
             },
           },
-          { type: "static", value: POSTER_TAGS.signalProposal },
+        ],
+      },
+    ],
+  }),
+  CREATEJAR: buildMultiCallTX({
+    id: "CREATEJAR",
+    JSONDetails: {
+      type: "JSONDetails",
+      jsonSchema: {
+        title: `.formValues.title`,
+        description: `.formValues.description`,
+        contentURI: `.formValues.link`,
+        contentURIType: { type: "static", value: "url" },
+        proposalType: { type: "static", value: ProposalTypeIds.Signal },
+      },
+    },
+    actions: [
+      {
+        contract: APP_CONTRACT.COOKIEJAR,
+        method: "summonCookieJar",
+        args: [
+          `.receiver`,
+          {
+            type: "JSONDetails",
+            jsonSchema: {
+              title: { type: "static", value: "sweet or salty?" },
+              user: `.user`,
+              receiver: `.receiver`,
+              description: `.reason`,
+              link: `.link`,
+              table: { type: "static", value: "reason" },
+              queryType: { type: "static", value: "list" },
+            },
+          },
         ],
       },
     ],

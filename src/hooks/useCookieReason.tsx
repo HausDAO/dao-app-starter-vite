@@ -8,6 +8,18 @@ import {
 import { listRecords } from '@daohaus/moloch-v3-data';
 import { handleErrorMessage } from '@daohaus/utils';
 
+/**
+ * Fetches a list of records from the specified DAO and of the given type
+ * @param daoId - the DAO id to fetch the records from
+ * @param chainId - the Ethereum network id to use
+ * @param recordType - the type of record to fetch
+ * @param pageSize - the number of records to fetch per page (default: 20)
+ * @param offset - the offset from which to start fetching records (default: 0)
+ * @param graphApiKeys - the API keys to use for accessing The Graph (default: GRAPH_API_KEYS)
+ * @param credentialType - an optional type of credential to filter by
+ * @returns a Promise that resolves to an array of record items
+ * @throws an Error if the request fails
+ */
 const fetchRecords = async ({
   daoId,
   chainId,
@@ -48,6 +60,17 @@ const fetchRecords = async ({
   }
 };
 
+/**
+ * Hook that fetches a list of records of the given type for the specified DAO
+ * @param daoId - the DAO id to fetch the records from
+ * @param chainId - the Ethereum network id to use
+ * @param recordType - the type of record to fetch
+ * @param pageSize - the number of records to fetch per page (default: 20)
+ * @param offset - the offset from which to start fetching records (default: 0)
+ * @param graphApiKeys - the API keys to use for accessing The Graph (default: GRAPH_API_KEYS)
+ * @param credentialType - an optional type of credential to filter by
+ * @returns an object with the fetched records and error (if any), and other `useQuery` props
+ */
 export const useCookieReason = ({
   daoId,
   chainId,
@@ -65,7 +88,6 @@ export const useCookieReason = ({
   graphApiKeys?: Keychain;
   credentialType?: string;
 }) => {
-console.log(daoId, chainId, recordType);
 
   const { data, error, ...rest } = useQuery(
     [credentialType || recordType, { daoId, chainId }],
@@ -80,10 +102,7 @@ console.log(daoId, chainId, recordType);
         credentialType,
       }),
     { enabled: !!daoId && !!chainId }
-  );
-
-  console.log(data, error);
-  
+  );  
 
   return { records: data, error: error as Error | null, ...rest };
 };

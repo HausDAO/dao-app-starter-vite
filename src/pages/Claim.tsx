@@ -1,16 +1,17 @@
 import { useDHConnect } from "@daohaus/connect";
-import { Input, Label, Spinner } from "@daohaus/ui";
+import { Checkbox, Input, Label, Spinner } from "@daohaus/ui";
 
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 
-import { useClaim } from "../hooks/useCookieJar";
+import { useCookieJar } from "../hooks/useCookieJar";
 import { DisplayClaim } from "../components/DisplayClaim";
 import { Countdown } from "../components/Countdown";
 import { ClaimDetails } from "../components/DetailsBox";
 import { ClaimButton } from "../components/ClaimButton";
 import { useState } from "react";
 import { TARGET_DAO } from "../targetDao";
+import { useParams } from "react-router-dom";
 
 export const Claims = () => {
   const { address, chainId } = useDHConnect();
@@ -19,18 +20,22 @@ export const Claims = () => {
 
   const [reason, setReason] = useState<string>("");
   const [link, setLink] = useState<string>("");
+  const [receiver, setReceiver] = useState<string>(address || "");
+  const [alternateReceiverCheck, setAlternateReceiverCheck] = useState<boolean>(false);
+
+  const { cookieAddress, cookieChain } = useParams();
+
 
   //   const { isIdle, isLoading, error, data, hasClaimed, canClaim, isMember, refetch } =
   const { isIdle, isLoading, error, data, hasClaimed, canClaim, refetch } =
-    useClaim({
-      cookieJarAddress:
-        TARGET_DAO[import.meta.env.VITE_TARGET_KEY].COOKIEJAR_ADDRESS,
+    useCookieJar({
+      cookieJarAddress: cookieAddress,
       userAddress: address,
-      chainId: TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID,
+      chainId: TARGET_DAO.CHAIN_ID,
     });
 
   const isGnosis =
-    chainId === TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID;
+    chainId === TARGET_DAO.CHAIN_ID;
 
   const handleReasonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReason(e.target.value);
@@ -38,6 +43,15 @@ export const Claims = () => {
 
   const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLink(e.target.value);
+  };
+
+  const handleReceiverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReceiver(e.target.value);
+  };
+
+  const toggleChecked = () => {
+    setReceiver(address || "");
+    setAlternateReceiverCheck(!alternateReceiverCheck);
   };
 
   if (isIdle)
@@ -195,11 +209,16 @@ export const Claims = () => {
                 value={link}
                 placeholder="Link to PR / Issue / hackmd /etc."
               />
+              <Label>Give your cookie to someone else</Label>
+              <Checkbox title="alternate receiver" onClick={toggleChecked}></Checkbox>
+              {alternateReceiverCheck && <Input id="alternateReceiver" full placeholder={address} onChange={handleReceiverChange} value={receiver}></Input>}
             </div>
             <ClaimButton
               reason={reason}
               link={link}
               user={address}
+              receiver={receiver || address}
+              cookieAddress={cookieAddress}
               onSuccess={() => {
                 refetch();
                 setShowConfetti(true);
@@ -231,7 +250,6 @@ export const Claims = () => {
                 placeholder="Reason for claiming from cookie jar"
               />
               <Label>Link to details</Label>
-
               <Input
                 id="cookieLink"
                 full
@@ -239,11 +257,16 @@ export const Claims = () => {
                 value={link}
                 placeholder="Link to PR / Issue / hackmd /etc."
               />
+              <Label>Give your cookie to someone else</Label>
+              <Checkbox title="alternate receiver" onClick={toggleChecked}></Checkbox>
+              {alternateReceiverCheck && <Input id="alternateReceiver" full placeholder={address} onChange={handleReceiverChange} value={receiver}></Input>}
             </div>
             <ClaimButton
               reason={reason}
               link={link}
               user={address}
+              receiver={receiver || address}
+              cookieAddress={cookieAddress}
               onSuccess={() => {
                 refetch();
                 setShowConfetti(true);
