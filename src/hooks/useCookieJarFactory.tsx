@@ -5,7 +5,7 @@ import { utils } from "ethers";
 import { createContract } from "@daohaus/tx-builder";
 import { ValidNetwork, Keychain } from "@daohaus/keychain-utils";
 import { nowInSeconds } from "@daohaus/utils";
-import  COOKIEJAR_FACTORY  from "../abis/factoryCookieJar.json";
+import COOKIEJAR_FACTORY from "../abis/factoryCookieJar.json";
 import { TARGET_DAO } from "../targetDao";
 
 const fetchFactoryRecords = async ({
@@ -22,12 +22,11 @@ const fetchFactoryRecords = async ({
     rpcs,
   });
   console.log("facaddr", TARGET_DAO.COOKIEJAR_FACTORY_ADDRESS);
-  
 
   try {
     const filter = factoryContract.filters.SummonCookieJar();
     const events = await factoryContract.queryFilter(filter);
-    console.log('factory events', events)
+    console.log("factory events", events);
     return {
       events,
     };
@@ -60,29 +59,26 @@ export const useCookieJarFactory = ({
     // baal ["address","uint256","uint256","address","address","uint256","bool","bool"],
     // safeaddr, period, amount, token, dao, threshold, useShares, useLoot
 
-    // let parsedDetails;
-    // try{
-    //   parsedDetails = JSON.parse(parsedContent.details);
-    // }
-    // catch{
-    //   parsedDetails = parsedContent.details;
-    // }
-    
-        
+    //TODO What are parsed details doing here?
+    let parsedDetails;
+    try {
+      parsedDetails = JSON.parse(parsedContent.details);
+    } catch {
+      parsedDetails = parsedContent.details;
+    }
+
     const initParams = utils.defaultAbiCoder.decode(
-        ["address","uint256","uint256","address"],
-        parsedContent.initializer
-      )
+      ["address", "uint256", "uint256", "address"],
+      parsedContent.initializer
+    );
     const initParamsObj = {
       safe: initParams[0],
       period: initParams[1],
       amount: initParams[2],
       token: initParams[3],
-    }
-    return {...parsedContent, initParamsObj, parsedDetails};
+    };
+    return { ...parsedContent, initParamsObj, parsedDetails };
   });
-
-
 
   return {
     records: data,

@@ -38,18 +38,17 @@ export const ClaimButton = ({
   const { fireTransaction } = useTxBuilder();
   const [txStatus, setTxStatus] = useState<StatusMsg | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const handleClick = () => {
-    
     setIsLoading(true);
     fireTransaction({
-      tx: APP_TX.COOKIEJAR as TXLego,
+      tx: APP_TX.REACH_IN_JAR as TXLego,
       callerState: {
         reason,
         link,
         user,
         receiver,
-        cookieAddress
+        cookieAddress,
       },
 
       lifeCycleFns: {

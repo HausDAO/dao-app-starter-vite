@@ -20,9 +20,7 @@ export const Members = () => {
       ) : (
         <>
           <Link
-            href={`https://admin.daohaus.fun/#/molochv3/${
-              TARGET_DAO.CHAIN_ID
-            }/${TARGET_DAO.ADDRESS}`}
+            href={`https://admin.daohaus.fun/#/molochv3/${TARGET_DAO.CHAIN_ID}/${TARGET_DAO.DAO_ADDRESS}`}
             style={{ marginBottom: "2rem" }}
           >
             View Full DAO admin
