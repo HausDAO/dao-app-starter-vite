@@ -1,6 +1,6 @@
 import { ValidNetwork } from "@daohaus/keychain-utils";
 
-// WIP To get it to build again
+//TODO WIP To get it to build again
 export const TARGET_DAO: {
   DAO_ADDRESS: string;
   COOKIEJAR_FACTORY_ADDRESS: string;

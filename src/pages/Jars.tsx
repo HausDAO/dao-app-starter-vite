@@ -1,37 +1,45 @@
-import styled from "styled-components";
-
-import { H2, Label, Link, ParMd, SingleColumnLayout } from "@daohaus/ui";
+import { H2, SingleColumnLayout } from "@daohaus/ui";
 import { HausAnimated } from "../components/HausAnimated";
-import { StyledRouterLink } from "../components/Layout";
 import { useDHConnect } from "@daohaus/connect";
 import { TARGET_DAO } from "../targetDao";
 
-import cookie from "../assets/cookie.png";
 import { useCookieJarFactory } from "../hooks/useCookieJarFactory";
-import { NavLink } from "react-router-dom";
 import { JarCard } from "../components/JarCard";
+import { CookieJarEntry, indexer } from "../utils/chainsauce";
+import { useEffect, useState } from "react";
 
 export const Jars = () => {
-  const { address, chainId } = useDHConnect();
+  const { address } = useDHConnect();
 
-  const { records, parsed, isLoading } = useCookieJarFactory({
+  const { isLoading } = useCookieJarFactory({
     userAddress: address,
     chainId: TARGET_DAO.CHAIN_ID,
   });
-  
+
+  const [jars, setJars] = useState<CookieJarEntry[]>([]);
+
+  const data = indexer.storage.collection("cookiejars");
+
   // TODO: filter on only jars user is on allow list of
+  useEffect(() => {
+    const getJars = async () => {
+      const jars = await data.all();
+      setJars(jars as CookieJarEntry[]);
+    };
+
+    if (data) {
+      getJars();
+    }
+  }, [data]);
 
   return (
     <SingleColumnLayout>
       <H2>Jars</H2>
 
       {isLoading && <HausAnimated />}
-      {parsed &&
-        parsed.map((record, idx) => {
-          return record?.cookieJar ? (
-            <JarCard record={record} user={address} key={idx} />
-          ): null;
-        })}
+
+      {jars &&
+        jars.map((jar) => <JarCard record={jar} user={address} key={jar.id} />)}
     </SingleColumnLayout>
   );
 };
