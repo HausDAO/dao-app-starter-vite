@@ -3995,7 +3995,7 @@ cbor@^8.0.0:
   dependencies:
     nofilter "^3.1.0"
 
-chainsauce-web@1.0.18:
+chainsauce-web@^1.0.18:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/chainsauce-web/-/chainsauce-web-1.0.18.tgz#cb7ff9618918b950e296568f1bf8e276bda27b6d"
   integrity sha512-XQGxdzt0SUIjL+zqvMw+EI39trs2bcjy5Q/YqmHv2hmx+xL63tINAWezibWpVkM4CCYKKJ2xJw6po0rllU2Y3Q==
@@ -4011,7 +4011,7 @@ chainsauce-web@1.0.18:
   version "1.0.18"
   dependencies:
     better-sqlite3 "^8.2.0"
-    chainsauce-web "file:../../Library/Caches/Yarn/v6/npm-chainsauce-web-1.0.18-2ac44a72-3bd2-43d1-9ced-503ee9863049-1684583998935/node_modules/chainsauce"
+    chainsauce-web "file:../../Library/Caches/Yarn/v6/npm-chainsauce-web-1.0.18-53453266-b6a1-490e-885d-824b4a15a90a-1684584227647/node_modules/chainsauce"
     ethers "^5.7.2"
     express "^4.18.2"
     idb "^7.1.1"
