@@ -1,10 +1,10 @@
-import { createIndexer, JsonStorage, Event } from "chainsauce";
-import type { Indexer } from "chainsauce";
+import { createIndexer, IdbStorage, Event } from "chainsauce-web";
+import type { Indexer } from "chainsauce-web";
 import { ethers } from "ethers";
 
-import FactoryABI from "../abis/factoryCookieJar.json" assert { type: "json" };
-import { useDHConnect } from "@daohaus/connect";
-import { ADDRESSES } from "./config";
+import FactoryABI from "../abis/factoryCookieJar.json";
+import { ADDRESSES } from "../utils/config";
+import { useEffect, useState } from "react";
 
 export type CookieJarEntry = {
   id: string;
@@ -53,8 +53,13 @@ const parseSummonEvent = (event: Event) => {
   } as CookieJarEntry;
 };
 
-async function handleEvent(indexer: Indexer<JsonStorage>, event: Event) {
-  const db = indexer.storage;
+async function handleEvent(indexer: Indexer<IdbStorage>, event: Event) {
+  const db = indexer.storage.db;
+
+  if (!db) {
+    console.error("No db");
+    return;
+  }
 
   switch (event.name) {
     case "SummonCookieJar":
@@ -66,7 +71,7 @@ async function handleEvent(indexer: Indexer<JsonStorage>, event: Event) {
 
       // address, details, initializer
       // TODO ID mix of chain + factory address + instance address
-      db.collection("cookieJars").insert({
+      db.add("cookieJars", {
         id: event.args.id,
         type: parsedEvent.type,
         address: parsedEvent.address,
@@ -76,20 +81,32 @@ async function handleEvent(indexer: Indexer<JsonStorage>, event: Event) {
     default:
       break;
   }
+
+  console.log("event", event);
 }
 
-const getIndexer = async () => {
-  const { provider } = useDHConnect();
-  if (!provider) throw new Error("No provider");
-  const indexer = await createIndexer(provider, storage, handleEvent);
-  return indexer;
+const useIndexer = (provider?: ethers.providers.Web3Provider) => {
+  if (!provider) return {};
+  const storage = new IdbStorage(["cookieJars"]);
+  const [indexer, setIndexer] = useState<Indexer<IdbStorage> | undefined>();
+
+  useEffect(() => {
+    const init = async () => {
+      const _indexer = await createIndexer(provider, storage, handleEvent);
+      _indexer.subscribe(ADDRESSES["0x64"].summonCookieJar, FactoryABI);
+
+      setIndexer(_indexer);
+    };
+
+    if (!indexer) {
+      init();
+    }
+  }, []);
+
+  // Susbscribe to events with the contract address and ABI
+  //TODO dynamic config loading
+
+  return { indexer: indexer };
 };
 
-const storage = new JsonStorage("./data");
-const indexer = await getIndexer();
-
-// Susbscribe to events with the contract address and ABI
-//TODO dynamic config loading
-indexer.subscribe(ADDRESSES["0x64"].summonCookieJar, FactoryABI);
-
-export { indexer };
+export { useIndexer };

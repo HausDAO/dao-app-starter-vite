@@ -3,7 +3,7 @@ import cookie from "../assets/cookie.png";
 import { TARGET_DAO } from "../targetDao";
 import { ZERO_ADDRESS, formatPeriods, fromWei } from "@daohaus/utils";
 import { StyledRouterLink } from "./Layout";
-import { CookieJarEntry } from "../utils/chainsauce";
+import { CookieJarEntry } from "../hooks/useIndexer";
 
 interface JarRecord {
   title: string;

@@ -2,9 +2,7 @@ import { useQuery } from "react-query";
 
 import { createContract } from "@daohaus/tx-builder";
 import { ValidNetwork, Keychain } from "@daohaus/keychain-utils";
-import { nowInSeconds } from "@daohaus/utils";
 import { LOCAL_ABI } from "@daohaus/abis";
-import { TARGET_DAO } from "../targetDao";
 
 const fetchPosterRecords = async ({
   userAddress,
@@ -29,9 +27,7 @@ const fetchPosterRecords = async ({
 
   try {
     // Query the contract for new post events
-    const filter = posterContract.filters.NewPost(
-      cookieAddress
-    );
+    const filter = posterContract.filters.NewPost(cookieAddress);
     const events = await posterContract.queryFilter(filter);
     // Return the events as an object
     return {
@@ -54,7 +50,6 @@ export const usePoster = ({
   chainId: ValidNetwork;
   rpcs?: Keychain;
 }) => {
-
   const { data, ...rest } = useQuery(
     ["posterData", { cookieAddress }],
     () =>
@@ -66,14 +61,11 @@ export const usePoster = ({
       }),
     { enabled: !!userAddress }
   );
-  console.log('data', data);
-  
+  console.log("data", data);
 
   // Parse the events data and extract the relevant information
   const parsed = data?.events.map((record: any) => {
-
-    return JSON.parse(record.args[1])
-
+    return JSON.parse(record.args[1]);
   });
 
   // Group the parsed records by user and count the number of records for each user
