@@ -8,27 +8,29 @@ import { CookieJarEntry, useIndexer } from "../hooks/useIndexer";
 import { useEffect, useState } from "react";
 
 export const Jars = () => {
-  const { address, provider } = useDHConnect();
-  const indexer = useIndexer(provider);
+  const { address } = useDHConnect();
+  const { indexer, getJars } = useIndexer();
 
-  const [jars, setJars] = useState<CookieJarEntry[]>([]);
+  const [jars, setJars] = useState<CookieJarEntry[]>();
 
   // TODO: filter on only jars user is on allow list of
   useEffect(() => {
-    const getJars = async () => {
+    const getAllCookieJars = async () => {
       if (indexer) {
-        console.log("Getting Jars");
+        const jars = await getJars();
+        setJars(jars);
       }
     };
 
-    getJars();
+    getAllCookieJars();
   }, [indexer]);
 
+  console.log("jars", jars);
   return (
     <SingleColumnLayout>
       <H2>Jars</H2>
 
-      {/* {isLoading && <HausAnimated />} */}
+      {!jars && <HausAnimated />}
 
       {jars &&
         jars.map((jar) => <JarCard record={jar} user={address} key={jar.id} />)}

@@ -11,6 +11,7 @@ import { IdbStorage, Indexer, Event, createIndexer } from "chainsauce-web";
 import { ADDRESSES } from "../utils/config";
 import FactoryABI from "../abis/factoryCookieJar.json";
 import { useEffect, useState } from "react";
+import { useIndexer } from "../hooks/useIndexer";
 
 const LinkBox = styled.div`
   display: flex;
@@ -125,28 +126,6 @@ async function handleEvent(indexer: Indexer<IdbStorage>, event: Event) {
 }
 
 export const Home = () => {
-  const { provider } = useDHConnect();
-  const [indexer, setIndexer] = useState<Indexer<IdbStorage>>();
-  const storage = new IdbStorage(["cookieJars"]);
-
-  // Effect hook to create indexer
-  useEffect(() => {
-    if (!provider || !storage) return;
-    const init = async () => {
-      const indexer = await createIndexer(provider, storage, handleEvent);
-      setIndexer(indexer);
-    };
-
-    init();
-  }, [provider]);
-
-  console.log(indexer);
-
-  if (indexer) {
-    // Don't set starting block to 0, bunch of indexing errors if you do
-    indexer.subscribe(ADDRESSES["0x64"].summonCookieJar, FactoryABI, 27746237);
-  }
-
   return (
     <SingleColumnLayout>
       <H2>COOKIE JAR</H2>

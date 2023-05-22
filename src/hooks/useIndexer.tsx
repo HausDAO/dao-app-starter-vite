@@ -1,27 +1,50 @@
 import { createIndexer, IdbStorage, Event } from "chainsauce-web";
 import type { Indexer } from "chainsauce-web";
-import { ethers } from "ethers";
+import { ethers, BigNumberish } from "ethers";
 
 import FactoryABI from "../abis/factoryCookieJar.json";
 import { ADDRESSES } from "../utils/config";
 import { useEffect, useState } from "react";
+import { useDHConnect } from "@daohaus/connect";
 
 export type CookieJarEntry = {
   id: string;
   type: string;
   address: string;
-  initializer: { [key: string]: any };
+  initializer: Initializer;
 };
 
-const parseSummonEvent = (event: Event) => {
-  // cookieJar, details, initializer
-  const parsedContent = event.args;
-  const address = parsedContent.cookieJar;
+export interface CookieJarInitializer {
+  safeTarget: string;
+  cookieAmount: BigNumberish;
+  periodLength: BigNumberish;
+  cookieToken: string;
+}
 
-  let initParams;
-  switch (parsedContent.details) {
+export interface BaalInitializer extends CookieJarInitializer {
+  dao: string;
+  threshold: BigNumberish;
+  useShares: boolean;
+  useLoot: boolean;
+}
+
+export interface Erc20Initializer extends CookieJarInitializer {
+  erc20Addr: string;
+  threshold: BigNumberish;
+}
+
+type Initializer = CookieJarInitializer | BaalInitializer | Erc20Initializer;
+
+const parseSummonEvent = (event: Event) => {
+  // cookieJar, initializer, jarType
+  const args = event.args;
+  console.log("Event: ", event);
+
+  let initParams: Initializer;
+  let decoded: ethers.utils.Result;
+  switch (args.jarType) {
     case "BAAL":
-      initParams = ethers.utils.defaultAbiCoder.decode(
+      decoded = ethers.utils.defaultAbiCoder.decode(
         [
           "address",
           "uint256",
@@ -32,23 +55,59 @@ const parseSummonEvent = (event: Event) => {
           "bool",
           "bool",
         ],
-        parsedContent.initializer
+        args.initializer
       );
+      console.log(decoded);
+      initParams = {
+        safeTarget: decoded[0],
+        cookieAmount: decoded[1],
+        periodLength: decoded[2],
+        cookieToken: decoded[3],
+        dao: decoded[4],
+        threshold: decoded[5],
+        useShares: decoded[6],
+        useLoot: decoded[7],
+      } as BaalInitializer;
+      break;
     case "ERC20":
-      initParams = ethers.utils.defaultAbiCoder.decode(
+      decoded = ethers.utils.defaultAbiCoder.decode(
         ["address", "uint256", "uint256", "address", "address", "uint256"],
-        parsedContent.initializer
+        args.initializer
       );
+      console.log(decoded);
+
+      initParams = {
+        safeTarget: decoded[0],
+        cookieAmount: decoded[1],
+        periodLength: decoded[2],
+        cookieToken: decoded[3],
+        erc20Addr: decoded[4],
+        threshold: decoded[5],
+      } as Erc20Initializer;
+
+      break;
     default:
+      console.log("Unknown jar type");
+      decoded = ethers.utils.defaultAbiCoder.decode(
+        ["address", "uint256", "uint256", "address"],
+        args.initializer
+      );
+      console.log(decoded);
+      initParams = {
+        safeTarget: decoded[0],
+        cookieAmount: decoded[1],
+        periodLength: decoded[2],
+        cookieToken: decoded[3],
+      } as CookieJarInitializer;
       break;
   }
 
-  if (!initParams) return undefined;
-
   return {
-    id: initParams[0],
-    type: parsedContent.details,
-    address,
+    id: ethers.utils.id(
+      event.address + event.args.cookieJar + JSON.stringify(initParams)
+    ),
+    type: args.jarType,
+    address: event.args.cookieJar,
     initializer: initParams,
   } as CookieJarEntry;
 };
@@ -61,52 +120,68 @@ async function handleEvent(indexer: Indexer<IdbStorage>, event: Event) {
     return;
   }
 
+  console.log("Handling event");
+
   switch (event.name) {
     case "SummonCookieJar":
+      console.log("SummonCookieJar");
       const parsedEvent = parseSummonEvent(event);
       if (!parsedEvent) {
         console.error("Failed to parse event", event);
         break;
       }
 
+      console.log("parserd event", parsedEvent);
+
       // address, details, initializer
       // TODO ID mix of chain + factory address + instance address
-      db.add("cookieJars", {
-        id: event.args.id,
-        type: parsedEvent.type,
-        address: parsedEvent.address,
-        initializer: parsedEvent.initializer,
-      });
+      await db.add(
+        "cookieJars",
+        parsedEvent,
+        ethers.utils.id(JSON.stringify(parsedEvent))
+      );
       break;
     default:
+      console.log("Unhandled event");
       break;
   }
 
   console.log("event", event);
 }
 
-const useIndexer = (provider?: ethers.providers.Web3Provider) => {
-  if (!provider) return {};
-  const storage = new IdbStorage(["cookieJars"]);
+const useIndexer = () => {
+  const { provider } = useDHConnect();
   const [indexer, setIndexer] = useState<Indexer<IdbStorage> | undefined>();
 
-  useEffect(() => {
-    const init = async () => {
-      const _indexer = await createIndexer(provider, storage, handleEvent);
-      _indexer.subscribe(ADDRESSES["0x64"].summonCookieJar, FactoryABI);
+  const storage = new IdbStorage(["cookieJars"]);
 
-      setIndexer(_indexer);
+  // Effect hook to create indexer
+  useEffect(() => {
+    if (!provider || !storage) return;
+    const init = async () => {
+      const indexer = await createIndexer(provider, storage, handleEvent);
+      setIndexer(indexer);
     };
 
-    if (!indexer) {
-      init();
-    }
-  }, []);
+    init();
+  }, [provider]);
 
+  console.log(indexer);
+
+  if (indexer) {
+    // Don't set starting block to 0, bunch of indexing errors if you do
+    indexer.subscribe(ADDRESSES["0x64"].summonCookieJar, FactoryABI, 27746237);
+  }
+
+  const getJars = async () => {
+    if (!indexer) return;
+    const db = indexer.storage.db;
+    return db?.getAll("cookieJars") as Promise<CookieJarEntry[]>;
+  };
   // Susbscribe to events with the contract address and ABI
   //TODO dynamic config loading
 
-  return { indexer: indexer };
+  return { indexer: indexer, getJars };
 };
 
 export { useIndexer };
