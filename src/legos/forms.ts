@@ -31,8 +31,8 @@ export const APP_FORM: Record<string, CustomFormLego> = {
       ...defaultRequiredFields,
       dao: true,
       threshold: true,
-      useShares: true,
-      useLoot: true,
+      useShares: false,
+      useLoot: false,
     },
     log: true,
     fields: [

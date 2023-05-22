@@ -24,7 +24,7 @@ export const APP_FIELD: Record<string, CustomFieldLego> = {
     id: "cookieAmount",
     type: "input",
     label: "Cookie amount",
-    placeholder: "Enter cookie amount (in ether or equivalent)",
+    placeholder: "Enter cookie amount (in wei or equivalent)",
   },
   PERIODLENGTH: {
     id: "periodLength",

@@ -58,15 +58,18 @@ export const useCookieJarFactory = (): CookieJarFactory => {
     initializer: Initializer
   ) => {
     let tx;
+    let _details;
+    let _initializer;
+
     console.log("contract", contract);
     if (instanceOfBaalInitializer(initializer)) {
       console.log("Summoning Baal Cookie Jar");
-      const _details = {
+      _details = {
         ...details,
         type: "BAAL",
       };
 
-      let _initializer = ethers.utils.defaultAbiCoder.encode(
+      _initializer = ethers.utils.defaultAbiCoder.encode(
         [
           "address",
           "uint256",
@@ -88,22 +91,17 @@ export const useCookieJarFactory = (): CookieJarFactory => {
           initializer.useLoot,
         ]
       );
-      tx = await contract.summonCookieJar(
-        JSON.stringify(_details),
-        addresses.baalCookieJar,
-        _initializer
-      );
     }
 
     if (instanceOfErc20Initializer(initializer)) {
       console.log("Summoning ERC20 Cookie Jar");
 
-      const _details = {
+      _details = {
         ...details,
         type: "ERC20",
       };
 
-      let _initializer = ethers.utils.defaultAbiCoder.encode(
+      _initializer = ethers.utils.defaultAbiCoder.encode(
         ["address", "uint256", "uint256", "address", "address", "uint256"],
         [
           initializer.safeTarget,
@@ -114,23 +112,21 @@ export const useCookieJarFactory = (): CookieJarFactory => {
           initializer.threshold,
         ]
       );
-
-      console.log("_details: ", _details);
-      console.log("_initializer: ", _initializer);
-      console.log("address: ", addresses.erc20CookieJar);
-
-      console.log("detailsString: ", JSON.stringify(_details));
-      const detailString = JSON.stringify(_details);
-      tx = await contract.summonCookieJar(
-        detailString,
-        addresses.erc20CookieJar,
-        _initializer
-      );
-
-      console.log(tx);
     }
 
-    return tx;
+    console.log("_details: ", _details);
+    console.log("_initializer: ", _initializer);
+    console.log("address: ", addresses.erc20CookieJar);
+
+    const detailString = JSON.stringify(_details);
+
+    console.log("detailsString: ", JSON.stringify(_details));
+
+    return contract.summonCookieJar(
+      detailString,
+      addresses.erc20CookieJar,
+      _initializer
+    );
   };
 
   return {
