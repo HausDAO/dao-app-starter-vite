@@ -1,7 +1,6 @@
 import { H2, SingleColumnLayout } from "@daohaus/ui";
 import { HausAnimated } from "../components/HausAnimated";
 import { useDHConnect } from "@daohaus/connect";
-import { TARGET_DAO } from "../targetDao";
 
 import { JarCard } from "../components/JarCard";
 import { CookieJarEntry, useIndexer } from "../hooks/useIndexer";
@@ -32,8 +31,7 @@ export const Jars = () => {
 
       {!jars && <HausAnimated />}
 
-      {jars &&
-        jars.map((jar) => <JarCard record={jar} user={address} key={jar.id} />)}
+      {jars && jars.map((jar) => <JarCard record={jar} key={jar.id} />)}
     </SingleColumnLayout>
   );
 };

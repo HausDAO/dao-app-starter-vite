@@ -1,129 +1,15 @@
 import styled from "styled-components";
 
 import { H2, Link, ParMd, SingleColumnLayout } from "@daohaus/ui";
-import { HausAnimated } from "../components/HausAnimated";
 import { StyledRouterLink } from "../components/Layout";
 // import cookie.png from assets
 import cookie from "../assets/cookie.png";
-import { useDHConnect } from "@daohaus/connect";
-import { ethers } from "ethers";
-import { IdbStorage, Indexer, Event, createIndexer } from "chainsauce-web";
-import { ADDRESSES } from "../utils/config";
-import FactoryABI from "../abis/factoryCookieJar.json";
-import { useEffect, useState } from "react";
-import { useIndexer } from "../hooks/useIndexer";
 
 const LinkBox = styled.div`
   display: flex;
   width: 50%;
   justify-content: space-between;
 `;
-
-export type CookieJarEntry = {
-  id: string;
-  type: string;
-  address: string;
-  initializer: { [key: string]: any };
-};
-
-const parseSummonEvent = (event: Event) => {
-  // cookieJar, initializer, jarType
-  const args = event.args;
-  console.log("Event: ", event);
-
-  let initParams;
-  switch (args.jarType) {
-    case "BAAL":
-      initParams = ethers.utils.defaultAbiCoder.decode(
-        [
-          "address",
-          "uint256",
-          "uint256",
-          "address",
-          "address",
-          "uint256",
-          "bool",
-          "bool",
-        ],
-        args.initializer
-      );
-      console.log(initParams);
-      break;
-    case "Testing cookv1":
-      initParams = ethers.utils.defaultAbiCoder.decode(
-        ["address", "uint256", "uint256", "address"],
-        args.initializer
-      );
-      console.log(initParams);
-
-      break;
-    case "cook test 2":
-      initParams = ethers.utils.defaultAbiCoder.decode(
-        ["address", "uint256", "uint256", "address"],
-        args.initializer
-      );
-      console.log(initParams);
-
-      break;
-    case "ERC20":
-      initParams = ethers.utils.defaultAbiCoder.decode(
-        ["address", "uint256", "uint256", "address", "address", "uint256"],
-        args.initializer
-      );
-      console.log(initParams);
-
-      break;
-    default:
-      console.log("Unknown jar type");
-      break;
-  }
-
-  if (!initParams) return undefined;
-
-  return {
-    id: initParams[0],
-    type: args.jarType,
-    address: initParams[0],
-    initializer: initParams,
-  } as CookieJarEntry;
-};
-
-async function handleEvent(indexer: Indexer<IdbStorage>, event: Event) {
-  const db = indexer.storage.db;
-
-  if (!db) {
-    console.error("No db");
-    return;
-  }
-
-  console.log("Handling event");
-
-  switch (event.name) {
-    case "SummonCookieJar":
-      console.log("SummonCookieJar");
-      const parsedEvent = parseSummonEvent(event);
-      if (!parsedEvent) {
-        console.error("Failed to parse event", event);
-        break;
-      }
-
-      console.log("parserd event", parsedEvent);
-
-      // address, details, initializer
-      // TODO ID mix of chain + factory address + instance address
-      await db.add(
-        "cookieJars",
-        parsedEvent,
-        ethers.utils.id(JSON.stringify(parsedEvent))
-      );
-      break;
-    default:
-      console.log("Unhandled event");
-      break;
-  }
-
-  console.log("event", event);
-}
 
 export const Home = () => {
   return (

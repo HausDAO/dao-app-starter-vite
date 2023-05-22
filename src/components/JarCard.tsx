@@ -5,18 +5,37 @@ import { ZERO_ADDRESS, formatPeriods, fromWei } from "@daohaus/utils";
 import { StyledRouterLink } from "./Layout";
 import { CookieJarEntry } from "../hooks/useIndexer";
 import { BigNumber } from "ethers";
+import CookieJarABI from "../abis/cookieJar.json";
+import { ethers } from "ethers";
+import { useEffect, useState } from "react";
+import { useDHConnect } from "@daohaus/connect";
 /**
 
  */
-export const JarCard = ({
-  record,
-  user,
-}: {
-  record: CookieJarEntry;
-  user: string | undefined;
-}) => {
+export const JarCard = ({ record }: { record: CookieJarEntry }) => {
   console.log("Record: ", record);
   console.log(record.initializer.periodLength);
+  const [isAllowed, setIsAllowed] = useState<boolean>(false);
+
+  const { provider } = useDHConnect();
+
+  useEffect(() => {
+    const getIsAllowed = async () => {
+      if (provider) {
+        const cookieJarContract = new ethers.Contract(
+          record.address,
+          CookieJarABI,
+          provider
+        );
+
+        const isAllowed = await cookieJarContract.canClaim();
+        setIsAllowed(isAllowed);
+      }
+    };
+
+    getIsAllowed();
+  }, []);
+
   return (
     <div style={{ marginBottom: "3rem" }}>
       <Card>
@@ -61,10 +80,7 @@ export const JarCard = ({
         </ParMd>
         <Label>on allowlist: </Label>
         <ParMd style={{ marginBottom: ".4rem" }}>
-          {
-            // data?.isAllowList
-            true ? "Yes" : "No"
-          }
+          {isAllowed ? "Yes" : "No"}
         </ParMd>
         <ParMd style={{ marginBottom: ".4rem" }}>
           Go to{" "}
