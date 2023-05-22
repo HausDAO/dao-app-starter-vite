@@ -1,88 +1,156 @@
-import { useQuery } from "react-query";
+import { BigNumberish, ContractTransaction } from "ethers";
 
-import { utils } from "ethers";
-
-import { createContract } from "@daohaus/tx-builder";
-import { ValidNetwork, Keychain } from "@daohaus/keychain-utils";
-import { nowInSeconds } from "@daohaus/utils";
 import COOKIEJAR_FACTORY from "../abis/factoryCookieJar.json";
-import { TARGET_DAO } from "../targetDao";
+import { ADDRESSES } from "../utils/config";
+import { useDHConnect } from "@daohaus/connect";
+import { ethers } from "ethers";
 
-const fetchFactoryRecords = async ({
-  chainId,
-  rpcs,
-}: {
-  chainId: ValidNetwork;
-  rpcs?: Keychain;
-}) => {
-  const factoryContract = createContract({
-    address: TARGET_DAO.COOKIEJAR_FACTORY_ADDRESS,
-    abi: COOKIEJAR_FACTORY,
-    chainId,
-    rpcs,
-  });
-  console.log("facaddr", TARGET_DAO.COOKIEJAR_FACTORY_ADDRESS);
+export interface CookieJarInitializer {
+  safeTarget: string;
+  cookieAmount: BigNumberish;
+  periodLength: BigNumberish;
+  cookieToken: string;
+}
 
-  try {
-    const filter = factoryContract.filters.SummonCookieJar();
-    const events = await factoryContract.queryFilter(filter);
-    console.log("factory events", events);
-    return {
-      events,
-    };
-  } catch (error: any) {
-    console.error(error);
-    throw new Error(error?.message as string);
-  }
+export interface BaalInitializer extends CookieJarInitializer {
+  dao: string;
+  threshold: BigNumberish;
+  useShares: boolean;
+  useLoot: boolean;
+}
+
+export interface Erc20Initializer extends CookieJarInitializer {
+  erc20Addr: string;
+  threshold: BigNumberish;
+}
+
+export type Initializer =
+  | CookieJarInitializer
+  | BaalInitializer
+  | Erc20Initializer;
+
+interface CookieJarFactory {
+  summonCookieJar: (
+    details: Details,
+    initializer: Initializer
+  ) => Promise<ContractTransaction> | undefined;
+}
+
+export type Details = {
+  type: string;
+  name: string;
+  description?: string;
 };
 
-export const useCookieJarFactory = ({
-  userAddress,
-  chainId,
-  rpcs,
-}: {
-  userAddress: string | undefined | null;
-  chainId: ValidNetwork;
-  rpcs?: Keychain;
-}) => {
-  const { data, ...rest } = useQuery(
-    ["recordData", { userAddress }],
-    () =>
-      fetchFactoryRecords({
-        chainId,
-        rpcs,
-      }),
-    { enabled: !!userAddress }
-  );
-  const parsed = data?.events.map((record: any) => {
-    const parsedContent = record.args;
-    // baal ["address","uint256","uint256","address","address","uint256","bool","bool"],
-    // safeaddr, period, amount, token, dao, threshold, useShares, useLoot
+export const useCookieJarFactory = (): CookieJarFactory => {
+  const { provider, chainId } = useDHConnect();
+  //TODO - support multiple chains
+  const addresses = ADDRESSES[chainId as "0x64"];
 
-    //TODO What are parsed details doing here?
-    let parsedDetails;
-    try {
-      parsedDetails = JSON.parse(parsedContent.details);
-    } catch {
-      parsedDetails = parsedContent.details;
+  const contract = new ethers.Contract(
+    addresses.summonCookieJar,
+    COOKIEJAR_FACTORY,
+    provider?.getSigner()
+  );
+
+  const summonCookieJar = async (
+    details: Details,
+    initializer: Initializer
+  ) => {
+    let tx;
+    console.log("contract", contract);
+    if (instanceOfBaalInitializer(initializer)) {
+      console.log("Summoning Baal Cookie Jar");
+      const _details = {
+        ...details,
+        type: "BAAL",
+      };
+
+      let _initializer = ethers.utils.defaultAbiCoder.encode(
+        [
+          "address",
+          "uint256",
+          "uint256",
+          "address",
+          "address",
+          "uint256",
+          "bool",
+          "bool",
+        ],
+        [
+          initializer.safeTarget,
+          initializer.periodLength,
+          initializer.cookieAmount,
+          initializer.cookieToken,
+          initializer.dao,
+          initializer.threshold,
+          initializer.useShares,
+          initializer.useLoot,
+        ]
+      );
+      tx = await contract.summonCookieJar(
+        JSON.stringify(_details),
+        addresses.baalCookieJar,
+        _initializer
+      );
     }
 
-    const initParams = utils.defaultAbiCoder.decode(
-      ["address", "uint256", "uint256", "address"],
-      parsedContent.initializer
-    );
-    const initParamsObj = {
-      safe: initParams[0],
-      period: initParams[1],
-      amount: initParams[2],
-      token: initParams[3],
-    };
-    return { ...parsedContent, initParamsObj, parsedDetails };
-  });
+    if (instanceOfErc20Initializer(initializer)) {
+      console.log("Summoning ERC20 Cookie Jar");
+
+      const _details = {
+        ...details,
+        type: "ERC20",
+      };
+
+      let _initializer = ethers.utils.defaultAbiCoder.encode(
+        ["address", "uint256", "uint256", "address", "address", "uint256"],
+        [
+          initializer.safeTarget,
+          initializer.periodLength,
+          initializer.cookieAmount,
+          initializer.cookieToken,
+          initializer.erc20Addr,
+          initializer.threshold,
+        ]
+      );
+
+      console.log("_details: ", _details);
+      console.log("_initializer: ", _initializer);
+      console.log("address: ", addresses.erc20CookieJar);
+
+      console.log("detailsString: ", JSON.stringify(_details));
+      const detailString = JSON.stringify(_details);
+      tx = await contract.summonCookieJar(
+        detailString,
+        addresses.erc20CookieJar,
+        _initializer
+      );
+
+      console.log(tx);
+    }
+
+    return tx;
+  };
 
   return {
-    records: data,
-    parsed,
-    ...rest,
+    summonCookieJar,
   };
 };
+
+function instanceOfBaalInitializer(
+  initializer: Initializer
+): initializer is BaalInitializer {
+  return (
+    "dao" in initializer &&
+    "threshold" in initializer &&
+    "useShares" in initializer &&
+    "useLoot" in initializer
+  );
+}
+
+function instanceOfErc20Initializer(
+  initializer: Initializer
+): initializer is Erc20Initializer {
+  return "erc20Addr" in initializer && "threshold" in initializer;
+}

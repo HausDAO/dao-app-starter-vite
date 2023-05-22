@@ -2,15 +2,59 @@ import { CustomFormLego } from "./fieldConfig";
 import { APP_FIELD } from "./fields";
 import { APP_TX } from "./tx";
 
+const defaultRequiredFields = {
+  name: true,
+  description: false,
+  safeTarget: true,
+  cookieAmount: true,
+  periodLength: true,
+  cookieToken: true,
+};
+
+const defaultFields = [
+  APP_FIELD.NAME,
+  APP_FIELD.DESCRIPTION,
+  APP_FIELD.SAFETARGET,
+  APP_FIELD.COOKIEAMOUNT,
+  APP_FIELD.PERIODLENGTH,
+  APP_FIELD.COOKIETOKEN,
+];
+
 export const APP_FORM: Record<string, CustomFormLego> = {
-  CREATEJAR: {
-    id: "CREATEJAR",
-    title: "Create Jar (coming soon)",
-    subtitle: "Choose from a variety of jar types",
-    description: "A cookie jar is a jar that holds cookies.",
-    requiredFields: { title: true },
+  CREATE_BAAL: {
+    id: "CREATE_BAAL",
+    title: "Create Baal Jar",
+    subtitle: "Build your MolochDAO V3 cookie jar",
+    description:
+      "Access to the cookie jar is determined by selected DAO tokens",
+    requiredFields: {
+      ...defaultRequiredFields,
+      dao: true,
+      threshold: true,
+      useShares: true,
+      useLoot: true,
+    },
     log: true,
-    tx: APP_TX.CREATEJAR,
-    fields: [APP_FIELD.TITLE, APP_FIELD.JARTYPE],
+    fields: [
+      ...defaultFields,
+      APP_FIELD.DAO,
+      APP_FIELD.THRESHOLD,
+      APP_FIELD.USESHARES,
+      APP_FIELD.USELOOT,
+    ],
+  },
+  CREATE_ERC20: {
+    id: "CREATE_ERC20",
+    title: "Create ERC20 Jar",
+    subtitle: "Build your ERC20 cookie jar",
+    description:
+      "Access to the cookie jar is determined by the ERC20 token balance",
+    requiredFields: {
+      ...defaultRequiredFields,
+      tokenAddress: true,
+      threshold: true,
+    },
+    log: true,
+    fields: [...defaultFields, APP_FIELD.TOKENADDRESS, APP_FIELD.THRESHOLD],
   },
 };

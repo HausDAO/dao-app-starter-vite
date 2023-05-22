@@ -5,6 +5,7 @@ import { Claims } from "./pages/Claim";
 import { History } from "./pages/History";
 import { Jars } from "./pages/Jars";
 import { CreateJar } from "./pages/CreateJar";
+import { CreateForm } from "./pages/CreateForm";
 
 export const Routes = () => {
   return (
@@ -23,7 +24,11 @@ export const Routes = () => {
           element={<History />}
         />
         <Route path={`/jars`} element={<Jars />} />
-        <Route path={`/create`} element={<CreateJar />} />
+        <Route path={`/create/`} element={<CreateJar />} />
+        <Route
+          path={`/create/:jarType`}
+          element={<CreateForm />}
+        />
       </Route>
     </Router>
   );

@@ -13,8 +13,6 @@ import { useDHConnect } from "@daohaus/connect";
 
  */
 export const JarCard = ({ record }: { record: CookieJarEntry }) => {
-  console.log("Record: ", record);
-  console.log(record.initializer.periodLength);
   const [isAllowed, setIsAllowed] = useState<boolean>(false);
 
   const { provider } = useDHConnect();

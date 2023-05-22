@@ -6,6 +6,7 @@ import FactoryABI from "../abis/factoryCookieJar.json";
 import { ADDRESSES } from "../utils/config";
 import { useEffect, useState } from "react";
 import { useDHConnect } from "@daohaus/connect";
+import { BaalInitializer, CookieJarInitializer, Erc20Initializer, Initializer } from "./useCookieJarFactory";
 
 export type CookieJarEntry = {
   id: string;
@@ -13,27 +14,6 @@ export type CookieJarEntry = {
   address: string;
   initializer: Initializer;
 };
-
-export interface CookieJarInitializer {
-  safeTarget: string;
-  cookieAmount: BigNumberish;
-  periodLength: BigNumberish;
-  cookieToken: string;
-}
-
-export interface BaalInitializer extends CookieJarInitializer {
-  dao: string;
-  threshold: BigNumberish;
-  useShares: boolean;
-  useLoot: boolean;
-}
-
-export interface Erc20Initializer extends CookieJarInitializer {
-  erc20Addr: string;
-  threshold: BigNumberish;
-}
-
-type Initializer = CookieJarInitializer | BaalInitializer | Erc20Initializer;
 
 const parseSummonEvent = (event: Event) => {
   // cookieJar, initializer, jarType

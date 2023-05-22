@@ -2,11 +2,11 @@ import { FieldLego } from "@daohaus/form-builder";
 import { CustomFieldLego } from "./fieldConfig";
 
 export const APP_FIELD: Record<string, CustomFieldLego> = {
-  TITLE: {
-    id: "title",
+  NAME: {
+    id: "name",
     type: "input",
-    label: "Proposal Title",
-    placeholder: "Enter title",
+    label: "Name",
+    placeholder: "Enter name",
   },
   DESCRIPTION: {
     id: "description",
@@ -14,29 +14,68 @@ export const APP_FIELD: Record<string, CustomFieldLego> = {
     label: "Description",
     placeholder: "Enter description",
   },
-  LINK: {
-    id: "link",
+  SAFETARGET: {
+    id: "safeTarget",
     type: "input",
-    label: "Link",
-    placeholder: "http://",
-    expectType: "url",
+    label: "Safe address",
+    placeholder: "Enter safe address",
   },
-  TEST_FIELD: {
-    id: "testField",
-    type: "testField",
-    label: "Test Field",
-    placeholder: "Enter something",
+  COOKIEAMOUNT: {
+    id: "cookieAmount",
+    type: "input",
+    label: "Cookie amount",
+    placeholder: "Enter cookie amount (in ether or equivalent)",
   },
-  JARTYPE: {
-    id: "jarType",
-    type: "select",
-    label: "Jar Type",
-    options: [
-      {name: "DAO", value: "baal", key: "baal"}, 
-      {name: "erc20", value: "erc20", key: "erc20"}, 
-      {name: "erc721", value: "erc721", key: "erc721"}, 
-      {name: "hats", value: "hats", key: "hats"}, 
-      {name: "pickles", value: "pickles", key: "pickles"}
+  PERIODLENGTH: {
+    id: "periodLength",
+    type: "input",
+    label: "Period length",
+    placeholder: "Enter period length (in seconds)",
+  },
+  COOKIETOKEN: {
+    id: "cookieToken",
+    type: "input",
+    label: "Cookie token",
+    placeholder: "Enter cookie token address",
+  },
+  DAO: {
+    id: "dao",
+    type: "input",
+    label: "DAO address",
+    placeholder: "Enter DAO address",
+  },
+  THRESHOLD: {
+    id: "threshold",
+    type: "input",
+    label: "Threshold",
+    placeholder: "Enter threshold",
+  },
+  USESHARES: {
+    id: "useShares",
+    type: "switch",
+    label: "Use shares",
+    switches: [
+      {
+        id: "useShares",
+        fieldLabel: "Use shares",
+      },
     ],
+  },
+  USELOOT: {
+    id: "useLoot",
+    type: "switch",
+    label: "Use loot",
+    switches: [
+      {
+        id: "useLoot",
+        fieldLabel: "Use loot",
+      },
+    ],
+  },
+  TOKENADDRESS: {
+    id: "tokenAddress",
+    type: "input",
+    label: "Token address",
+    placeholder: "Enter token address",
   },
 };
