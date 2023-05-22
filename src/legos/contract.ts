@@ -2,7 +2,6 @@ import { LOCAL_ABI } from "@daohaus/abis";
 import { ContractLego } from "@daohaus/utils";
 import { CONTRACT_KEYCHAINS } from "@daohaus/keychain-utils";
 import COOKIEJAR_ABI from "../abis/cookieJar.json";
-import { TARGET_DAO } from "../targetDao";
 import JAR_FACTORY_ABI from "../abis/factoryCookieJar.json";
 
 export const APP_CONTRACT: Record<string, ContractLego> = {
@@ -62,6 +61,6 @@ export const APP_CONTRACT: Record<string, ContractLego> = {
     type: "static",
     contractName: "SUMMON_JAR",
     abi: JAR_FACTORY_ABI,
-    targetAddress: ".factoryAddress",
+    targetAddress: "0x47135bC487036deea0c51bc9A63A6dAA9eA367ee",
   },
 };

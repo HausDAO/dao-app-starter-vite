@@ -1,0 +1,10 @@
+export const ADDRESSES = {
+  "0x64": {
+    baalCookieJar: "0x153AbfadA469af7Ff5183483284Bd8Bf8e8038e0",
+    erc20CookieJar: "0xdBAB2feBe03d1285515471c54AfF155b10f86849",
+    erc721CookieJar: "0x35808d5d1bedE3F55B14BA60B96675BD66CD6Dcb",
+    listCookieJar: "0xa74DE85a3F11B1981dA98481E040F8A6fEa44bE2",
+    openCookieJar: "0x10Bd50f86C9e64d4FE75BEc8fd37CD84CA0C2e33",
+    summonCookieJar: "0x47135bC487036deea0c51bc9A63A6dAA9eA367ee",
+  },
+};
