@@ -78,6 +78,7 @@ export const Proposal = () => {
               daoChain={daoChain}
               daoId={daoId}
               proposal={proposal}
+              decodeError={false}
               includeLinks
             />
           )}
@@ -85,7 +86,7 @@ export const Proposal = () => {
             daoChain={daoChain}
             daoId={daoId}
             proposal={proposal}
-            txLegos={TX}
+            decodeError={false}
           />
         </OverviewCard>
       }
