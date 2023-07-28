@@ -1200,7 +1200,7 @@
     react-icons "4.7.1"
     styled-components "5.3.5"
 
-"@daohaus/keychain-utils@0.2.0-alpha.0":
+"@daohaus/keychain-utils@0.2.0-alpha.0", "@daohaus/keychain-utils@^0.2.0-alpha.0":
   version "0.2.0-alpha.0"
   resolved "https://registry.yarnpkg.com/@daohaus/keychain-utils/-/keychain-utils-0.2.0-alpha.0.tgz#5a1d3641940d258be5aa38fbb90009e32945ee75"
   integrity sha512-UAtGJdPAJ4+7LYEbPc0q0yWy0M6jIgpqumOq0lUOGyegF087+9W2tkj/EnxTPH9Td0iTwFV9yLBB8Zl15FWBvA==

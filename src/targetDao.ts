@@ -1,4 +1,4 @@
-import { ValidNetwork } from "@daohaus/keychain-utils";
+import { ValidNetwork, VIEM_CHAINS } from "@daohaus/keychain-utils";
 
 export const TARGET_DAO: {
   [key: string]: {
