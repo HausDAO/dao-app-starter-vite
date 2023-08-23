@@ -1,7 +1,7 @@
 {
-  "name": "daohaus-vite-starter",
+  "name": "daohaus-dao-app-starter",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,16 +9,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@daohaus/connect": "^0.1.29",
-    "@daohaus/contract-utils": "^0.1.29",
-    "@daohaus/form-builder": "^0.1.29",
-    "@daohaus/moloch-v3-fields": "^0.0.6",
-    "@daohaus/moloch-v3-hooks": "^0.0.14",
-    "@daohaus/moloch-v3-legos": "^0.0.6",
-    "@daohaus/moloch-v3-macro-ui": "^0.0.14",
-    "@daohaus/tx-builder": "^0.1.29",
-    "@daohaus/ui": "^0.1.29",
-    "@daohaus/utils": "^0.1.29",
+    "@daohaus/abis": "^0.2.0",
+    "@daohaus/connect": "^0.2.0",
+    "@daohaus/connect-context": "^0.2.0",
+    "@daohaus/contract-utils": "^0.2.0",
+    "@daohaus/form-builder": "^0.2.0",
+    "@daohaus/form-builder-base": "^0.2.0",
+    "@daohaus/keychain-utils": "^0.2.0",
+    "@daohaus/moloch-v3-data": "^0.2.0",
+    "@daohaus/moloch-v3-fields": "^0.2.0",
+    "@daohaus/moloch-v3-hooks": "^0.2.0",
+    "@daohaus/moloch-v3-legos": "^0.2.0",
+    "@daohaus/moloch-v3-macro-ui": "^0.2.0",
+    "@daohaus/profile-data": "^0.2.0",
+    "@daohaus/tx-builder": "^0.2.0",
+    "@daohaus/ui": "^0.2.0",
+    "@daohaus/utils": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
@@ -29,7 +35,7 @@
     "@types/react-dom": "^18.0.7",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^2.2.0",
-    "typescript": "^4.6.4",
+    "typescript": "^5.0.4",
     "vite": "^3.2.0"
   }
 }
