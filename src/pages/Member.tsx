@@ -7,7 +7,7 @@ import {
   Button,
   ParLg,
   SingleColumnLayout,
-  Spinner,
+  Loading,
   useBreakpoint,
   useToast,
   widthQuery,
@@ -52,7 +52,7 @@ export const Member = () => {
 
   return (
     <SingleColumnLayout title="Member Profile">
-      {!member && isFetching && <Spinner size="12rem" />}
+      {!member && isFetching && <Loading size={12} />}
       {!member && isFetched && <ParLg>Member Not Found</ParLg>}
       {member && (
         <>

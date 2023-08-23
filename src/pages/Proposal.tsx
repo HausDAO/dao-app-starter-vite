@@ -6,7 +6,7 @@ import {
   ProposalDetails,
   ProposalHistory,
 } from "@daohaus/moloch-v3-macro-ui";
-import { BiColumnLayout, Card, ParLg, Spinner, widthQuery } from "@daohaus/ui";
+import { BiColumnLayout, Card, ParLg, Loading, widthQuery } from "@daohaus/ui";
 import {
   getProposalTypeLabel,
   PROPOSAL_TYPE_LABELS,
@@ -60,7 +60,7 @@ export const Proposal = () => {
   if (!proposal)
     return (
       <LoadingContainer>
-        <Spinner size="6rem" />
+        <Loading size={6} />
       </LoadingContainer>
     );
 
