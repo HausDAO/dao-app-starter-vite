@@ -19,6 +19,7 @@ export default ({ mode }) => {
         NX_WALLET_CONNECT_ID: process.env.VITE_WALLET_CONNECT_ID,
         NX_OPTIMISM_ALCHEMY_KEY: process.env.VITE_OPTIMISM_ALCHEMY_KEY,
         NX_ARBITRUM_ALCHEMY_KEY: process.env.VITE_ARBITRUM_ALCHEMY_KEY,
+        NX_POLYGONPOS_ALCHEMY_KEY: process.env.VITE_POLYGONPOS_ALCHEMY_KEY,
       },
     },
     optimizeDeps: {
