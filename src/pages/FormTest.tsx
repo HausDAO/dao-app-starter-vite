@@ -2,14 +2,16 @@ import { FormBuilder } from "@daohaus/form-builder";
 import { MolochFields } from "@daohaus/moloch-v3-fields";
 
 import { APP_FORM } from "../legos/forms";
-import { TARGET_DAO } from "../targetDao";
 import { AppFieldLookup } from "../legos/fieldConfig";
+import { useCurrentDao } from "@daohaus/moloch-v3-hooks";
 
 export const FormTest = () => {
+  const { daoChain } = useCurrentDao();
+
   return (
     <FormBuilder
       form={APP_FORM.SIGNAL}
-      targetNetwork={TARGET_DAO[import.meta.env.VITE_TARGET_KEY].CHAIN_ID}
+      targetNetwork={daoChain}
       customFields={{ ...MolochFields, ...AppFieldLookup }}
     />
   );
