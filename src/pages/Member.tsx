@@ -12,6 +12,7 @@ import {
   useToast,
   widthQuery,
 } from "@daohaus/ui";
+import { ButtonRouterLink } from "../components/ButtonRouterLink";
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -57,26 +58,20 @@ export const Member = () => {
       {member && (
         <>
           <ButtonsContainer>
-            {/* <ButtonRouterLink
+            <ButtonRouterLink
               to={`/molochv3/${daoChain}/${daoId}/members`}
               IconLeft={StyledArrowLeft}
               color="secondary"
               linkType="no-icon-external"
               variant="outline"
               fullWidth={isMobile}
-              // was centerAlign={isMobile}
-              // Default has always been center.
-              // Not sure what is supposed to happen here?
-              // justify={isMobile ? 'center' : 'flex-start'}
             >
               MEMBERS
-            </ButtonRouterLink> */}
+            </ButtonRouterLink>
             <Button
               IconLeft={BsShareFill}
               onClick={handleOnClick}
               fullWidth={isMobile}
-              // Same as above
-              // centerAlign={isMobile}
             >
               SHARE PROFILE
             </Button>
@@ -85,6 +80,8 @@ export const Member = () => {
             daoChain={daoChain}
             daoId={daoId}
             member={member}
+            allowLinks={true}
+            allowMemberMenu={true}
           />
         </>
       )}

@@ -1,24 +1,32 @@
 import { useMemo } from "react";
-import { useParams } from "react-router-dom";
 
 import { FormBuilder } from "@daohaus/form-builder";
 import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from "@daohaus/utils";
-import { sortTokensForRageQuit } from "@daohaus/moloch-v3-fields";
 import { COMMON_FORMS } from "@daohaus/moloch-v3-legos";
-import { MolochFields } from "@daohaus/moloch-v3-fields";
-import { useConnectedMember, useDaoData } from "@daohaus/moloch-v3-hooks";
+import { sortTokensForRageQuit } from "@daohaus/moloch-v3-fields";
+
+import { AppFieldLookup } from "../legos/legoConfig";
+import {
+  useCurrentDao,
+  useDaoData,
+  useDaoMember,
+  useDaoMembers,
+} from "@daohaus/moloch-v3-hooks";
 import { useDHConnect } from "@daohaus/connect";
 
 export function RageQuit() {
-  const { daoid, daochain } = useParams();
   const { dao, refetch } = useDaoData();
-
+  const { daoId, daoChain } = useCurrentDao();
   const { address } = useDHConnect();
-  const { connectedMember } = useConnectedMember({
-    daoChain: daochain as string,
-    daoId: daoid as string,
-    memberAddress: address as string,
+  const { member: connectedMember, refetch: refetchMember } = useDaoMember({
+    memberAddress: address,
+    // @ts-expect-error: need to fix in hooks package
+    daoId,
+    // @ts-expect-error: need to fix in hooks package
+    daoChain,
   });
+
+  const { refetch: refetchMembers } = useDaoMembers();
 
   const defaultFields = useMemo(() => {
     if (connectedMember && dao) {
@@ -44,6 +52,8 @@ export function RageQuit() {
 
   const onFormComplete = () => {
     refetch?.();
+    refetchMember?.();
+    refetchMembers?.();
   };
 
   if (!dao || !connectedMember) {
@@ -54,13 +64,13 @@ export function RageQuit() {
     <FormBuilder
       defaultValues={defaultFields}
       form={{ ...COMMON_FORMS.RAGEQUIT, log: true, devtool: true }}
-      customFields={MolochFields}
+      customFields={AppFieldLookup}
       lifeCycleFns={{
         onPollSuccess: () => {
           onFormComplete();
         },
       }}
-      targetNetwork={daochain}
+      targetNetwork={daoChain}
     />
   );
 }
