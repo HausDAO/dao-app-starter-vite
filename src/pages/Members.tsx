@@ -16,7 +16,12 @@ export const Members = () => {
       {!daoChain || !daoId ? (
         <Loading size={isMd ? 8 : 16} padding="6rem" />
       ) : (
-        <MemberList daoChain={daoChain} daoId={daoId} />
+        <MemberList
+          daoChain={daoChain}
+          daoId={daoId}
+          allowLinks={true}
+          allowMemberMenu={true}
+        />
       )}
     </SingleColumnLayout>
   );

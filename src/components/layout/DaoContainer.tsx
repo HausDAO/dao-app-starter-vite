@@ -5,6 +5,7 @@ import { TXBuilder } from "@daohaus/tx-builder";
 import { H4 } from "@daohaus/ui";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import { CurrentDaoProvider, useDaoData } from "@daohaus/moloch-v3-hooks";
+import { useMemo } from "react";
 
 export const DaoContainer = () => {
   const location = useLocation();
@@ -19,17 +20,28 @@ export const DaoContainer = () => {
 
   const routePath = `molochv3/${daoChain}/${daoId}`;
 
+  const navLinks = useMemo(() => {
+    let baseLinks = [
+      { label: "Claim", href: `/${routePath}/claim` },
+      { label: "DAO", href: `/${routePath}` },
+      { label: "Safes", href: `/${routePath}/safes` },
+      { label: "Proposals", href: `/${routePath}/proposals` },
+      { label: "Members", href: `/${routePath}/members` },
+      { label: "Settings", href: `/${routePath}/settings` },
+    ];
+
+    return address
+      ? [
+          ...baseLinks,
+          { label: "Profile", href: `/${routePath}/member/${address}` },
+        ]
+      : baseLinks;
+  }, [daoChain, daoId, address]);
+
   return (
     <DHLayout
       pathname={location.pathname}
-      navLinks={[
-        { label: "Home", href: `/` },
-        { label: "DAO Overview", href: `/${routePath}` },
-        { label: "Safes", href: `/${routePath}/safes` },
-        { label: "Proposals", href: `/${routePath}/proposals` },
-        { label: "Members", href: `/${routePath}/members` },
-        { label: "Settings", href: `/${routePath}/settings` },
-      ]}
+      navLinks={navLinks}
       leftNav={<H4>{dao?.name}</H4>}
     >
       <CurrentDaoProvider
