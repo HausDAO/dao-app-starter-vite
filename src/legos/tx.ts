@@ -16,8 +16,8 @@ export enum ProposalTypeIds {
 }
 
 export const APP_TX = {
-  POST_SIGNAL: buildMultiCallTX({
-    id: "POST_SIGNAL",
+  TEST_TX: buildMultiCallTX({
+    id: "TEST_TX",
     JSONDetails: {
       type: "JSONDetails",
       jsonSchema: {
@@ -38,6 +38,7 @@ export const APP_TX = {
             jsonSchema: {
               title: `.formValues.title`,
               description: `.formValues.description`,
+              superSignal: `.formValues.testField`,
               contentURI: `.formValues.link`,
               contentURIType: { type: "static", value: "url" },
               proposalType: { type: "static", value: ProposalTypeIds.Signal },

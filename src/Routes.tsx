@@ -22,6 +22,7 @@ import RageQuit from "./pages/RageQuit";
 import { MULTI_DAO_ROUTER } from "@daohaus/moloch-v3-hooks";
 import { HomeContainer } from "./components/layout/HomeContainer";
 import { DaoContainer } from "./components/layout/DaoContainer";
+import NewProposal from "./pages/NewProposal";
 
 export const Routes = ({
   setDaoChainId,
@@ -55,6 +56,7 @@ export const Routes = ({
         <Route path="settings" element={<Settings />} />
         <Route path="proposals" element={<Proposals />} />
         <Route path="proposal/:proposalId" element={<Proposal />} />
+        <Route path="new-proposal" element={<NewProposal />} />
         <Route path="members" element={<Members />} />
         <Route path="member/:memberAddress" element={<Member />} />
         <Route path="members/ragequit" element={<RageQuit />} />
