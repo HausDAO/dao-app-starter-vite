@@ -1,8 +1,6 @@
-import { PROPOSAL_FORMS } from "@daohaus/moloch-v3-legos";
+import { MolochFormLego } from "@daohaus/moloch-v3-fields";
 
 import { CustomFormLego } from "../legos/legoConfig";
-import { APP_FORM } from "../legos/forms";
-import { MolochFormLego } from "@daohaus/moloch-v3-fields";
 
 export const getFormLegoByIdApp = (
   id: CustomFormLego["id"],
