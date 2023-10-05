@@ -50,7 +50,7 @@ const Dao = ({
 
   const navLinks = useMemo(() => {
     let baseLinks = [
-      { label: "Claim", href: `/${routePath}/claim` },
+      { label: "Home", href: `/` },
       { label: "DAO", href: `/${routePath}` },
       { label: "Safes", href: `/${routePath}/safes` },
       { label: "Proposals", href: `/${routePath}/proposals` },
@@ -82,6 +82,7 @@ const Dao = ({
       }
     >
       <CurrentDaoProvider
+        userAddress={address}
         targetDao={{
           daoChain: daoChain,
           daoId: daoId,
