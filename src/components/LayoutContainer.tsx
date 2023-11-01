@@ -6,7 +6,7 @@ import { TARGET_DAO } from "../targetDao";
 
 export const LayoutContainer = () => {
   const location = useLocation();
-  const { provider, address } = useDHConnect();
+  const { publicClient, address } = useDHConnect();
 
 
   return (
@@ -15,10 +15,10 @@ export const LayoutContainer = () => {
       navLinks={[
         { label: "Home", href: `/` },
       ]}
-      leftNav={<H4>Summon</H4>}
+      leftNav={<H4>DAOhaus Bare Bones</H4>}
     >
         <TXBuilder
-          provider={provider}
+          publicClient={publicClient}
           chainId={TARGET_DAO.CHAIN_ID}
           appState={{ memberAddress: address }}
         >

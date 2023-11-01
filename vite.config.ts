@@ -12,8 +12,30 @@ export default ({ mode }) => {
         NX_GRAPH_API_KEY_MAINNET: process.env.VITE_GRAPH_API_KEY_MAINNET,
         NX_INFURA_PROJECT_ID: process.env.VITE_INFURA_PROJECT_ID,
         NX_ETHERSCAN_KEY: process.env.VITE_ETHERSCAN_KEY,
-        NODE_ENV: "16.6.0",
+        NX_ARBISCAN_KEY: process.env.VITE_ARBISCAN_KEY,
+        NX_GNOSISSCAN_KEY: process.env.VITE_GNOSISSCAN_KEY,
+        NX_POLYGONSCAN_KEY: process.env.VITE_POLYGONSCAN_KEY,
+        NX_OPTIMISMSCAN_KEY: process.env.VITE_OPTIMISMSCAN_KEY,
+        NX_WALLET_CONNECT_ID: process.env.VITE_WALLET_CONNECT_ID,
+        NX_OPTIMISM_ALCHEMY_KEY: process.env.VITE_OPTIMISM_ALCHEMY_KEY,
+        NX_ARBITRUM_ALCHEMY_KEY: process.env.VITE_ARBITRUM_ALCHEMY_KEY,
+        NX_POLYGONPOS_ALCHEMY_KEY: process.env.VITE_POLYGONPOS_ALCHEMY_KEY,
       },
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        target: "es2020",
+        define: {
+          global: "globalThis",
+        },
+        supported: {
+          bigint: true,
+        },
+      },
+    },
+
+    build: {
+      target: ["es2020"],
     },
   });
 };
