@@ -54,12 +54,27 @@ Rivet is the default RPC - Get a free Rivet key [here](https://rivet.cloud/)
 VITE_RIVET_KEY
 ```
 
-You can also use Alchemy API keys for Optimism, Arbitrum or Polygon
+You can also use any RPC url
+
+```yaml
+VITE_MAINNET_RPC=
+VITE_GOERLI_RPC=
+VITE_GNOSISCHAIN_RPC=
+VITE_OPTIMISM_RPC=
+VITE_POLYGONPOS_RPC=
+VITE_ARBITRUM_RPC=
+VITE_SEPOLIA_RPC=
+VITE_BASE_RPC=
+```
+
+
+You can also use Alchemy API keys for Optimism, Arbitrum, Base or Polygon
 
 ```yaml
 VITE_OPTIMISM_ALCHEMY_KEY
 VITE_ARBITRUM_ALCHEMY_KEY
 VITE_POLYGONPOS_ALCHEMY_KEY
+VITE_BASE_ALCHEMY_KEY
 ```
 
 Proposal details uses etherscan explorer APIs to fetch ABIs. Add a key for any chain you are supporting. Get an Etherscan API key [here](https://etherscan.io/apis)
@@ -70,6 +85,7 @@ VITE_ARBISCAN_KEY
 VITE_GNOSISSCAN_KEY
 VITE_POLYGONSCAN_KEY
 VITE_OPTIMISMSCAN_KEY
+VITE_BASESCAN_KEY
 ```
 
 If developing for Mainnet or Gnosis Chain you can get an API key [here](https://thegraph.com/explorer/subgraph?id=GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP&view=Overview). Ignore this one if not worried about mainnet or gnosis chain yet.
